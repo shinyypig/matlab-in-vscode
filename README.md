@@ -1,6 +1,6 @@
 # Matlab in VSCode
 
-This is an VSCode extension for Matlab. It provides the following features:
+This is a VSCode extension for Matlab. It provides the following features:
 
 - run a complete matlab .m file
 - run a cell in matlab code by press `ctrl+enter` or `cmd+enter`
@@ -14,6 +14,8 @@ All functions can be accessed by clicking the button in the menu bar.
 <div align=center>
     <img width=50% style=margin:2% src="assets/2023-03-23-13-52-05.png">
 </div>
+
+Click [here](https://marketplace.visualstudio.com/items?itemName=shinyypig.matlab-in-vscode) to install the extension.
 
 ## Settings
 
