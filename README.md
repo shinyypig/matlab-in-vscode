@@ -14,3 +14,36 @@ All functions can be accessed by clicking the button in the menu bar.
 <div align=center>
     <img width=50% style=margin:2% src="assets/2023-03-23-13-52-05.png">
 </div>
+
+## Settings
+
+- `matlabPath`: the path of matlab executable file, default is `matlab`
+- `matlabArgs`: the code to run after starting the matlab, default is empty, you can add some code to set the default figure style, for example:
+
+    ```json
+    "matlab-in-vscode.matlabArgs": [
+        "addpath(genpath('./'));",
+        "set(groot, 'defaultLineLineWidth', 2);",
+        "set(groot, 'DefaultLineMarkerSize', 8);",
+        "set(groot, 'defaultAxesFontSize', 18);",
+        "set(groot, 'defaultAxesXGrid', 'on');",
+        "set(groot, 'defaultAxesYGrid', 'on');",
+        "set(groot, 'defaultAxesBox', 'on');",
+        "set(groot, 'defaultLegendBox', 'off');",
+        "format compact;"
+    ],
+    ```
+
+## Cell Mode
+
+You can split your code by `%%`, click the run cell button or simply press `ctrl+enter` (mac: `cmd+enter`) to run the active cell.
+
+<div align=center>
+    <img width=50% style=margin:2% src="assets/iShot_2023-03-23_14.07.00.gif">
+</div>
+
+## Release Notes
+
+### 0.0.1
+
+First release!!!
