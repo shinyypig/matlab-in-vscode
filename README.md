@@ -44,6 +44,10 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
 
 ## Release Notes
 
+### 0.0.2
+
+Add an icon for the extension.
+
 ### 0.0.1
 
 First release!!!
