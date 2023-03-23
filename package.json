@@ -2,7 +2,7 @@
     "name": "matlab-in-vscode",
     "displayName": "Matlab in VSCode",
     "description": "Run Matlab code in VSCode",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "shinyypig",
     "license": "MIT",
     "icon": "assets/matlab.png",
@@ -40,16 +40,13 @@
             {
                 "command": "matlab-in-vscode.runMatlabFile",
                 "title": "Run Current Matlab File",
-                "when": "editorTextFocus",
                 "icon": "$(notebook-execute-all)"
             },
             {
                 "command": "matlab-in-vscode.runMatlabCell",
                 "title": "Run Current Matlab Cell",
-                "key": "ctrl+enter",
-                "mac": "cmd+enter",
-                "when": "editorTextFocus",
-                "icon": "$(notebook-execute)"
+                "icon": "$(notebook-execute)",
+                "when": "editorTextFocus && editorLangId == matlab"
             },
             {
                 "command": "matlab-in-vscode.interupt",
@@ -75,6 +72,14 @@
                 "command": "matlab-in-vscode.edit",
                 "title": "Edit in Matlab",
                 "icon": "$(book)"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "matlab-in-vscode.runMatlabCell",
+                "key": "ctrl+enter",
+                "mac": "cmd+enter",
+                "when": "editorTextFocus && editorLangId == matlab"
             }
         ],
         "menus": {
