@@ -1,13 +1,19 @@
 {
     "name": "matlab-in-vscode",
     "displayName": "Matlab in VSCode",
-    "description": "",
+    "description": "Run Matlab code in VSCode",
     "version": "0.0.1",
+    "publisher": "shinyypig",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/shinyypig/matlab-in-vscode"
+    },
     "engines": {
         "vscode": "^1.76.0"
     },
     "categories": [
-        "Other"
+        "Programming Languages"
     ],
     "activationEvents": [
         "onLanguage:matlab"
