@@ -12,7 +12,7 @@ This is a VSCode extension for Matlab. It provides the following features:
 All functions can be accessed by clicking the button in the menu bar.
 
 <div align=center>
-    <img width=50% style=margin:2% src="assets/2023-03-23-13-52-05.png">
+    <img width=50% style=margin:2% src="assets/2023-03-25-11-55-00.png">
 </div>
 
 Click [here](https://marketplace.visualstudio.com/items?itemName=shinyypig.matlab-in-vscode) to install the extension.
@@ -41,10 +41,15 @@ Click [here](https://marketplace.visualstudio.com/items?itemName=shinyypig.matla
 You can split your code by `%%`, click the run cell button or simply press `ctrl+enter` (mac: `cmd+enter`) to run the active cell.
 
 <div align=center>
-    <img width=50% style=margin:2% src="assets/iShot_2023-03-23_14.07.00.gif">
+    <img width=50% style=margin:2% src="assets/iShot_2023-03-25_11.52.16.gif">
 </div>
 
 ## Release Notes
+
+### 0.1.0
+
+Add split line for each cell.
+Add a button to open the help document of matlab.
 
 ### 0.0.3
 
