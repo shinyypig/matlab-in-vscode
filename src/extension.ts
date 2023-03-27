@@ -35,13 +35,12 @@ export function activate(context: vscode.ExtensionContext) {
         if (matlabTerminal === undefined) {
             matlabTerminal = vscode.window.createTerminal('Matlab');
             let config = vscode.workspace.getConfiguration('matlab-in-vscode');
-            let matlabPath = config.get('matlabPath') as string;
+            let matlabCMD = config.get('matlabCMD') as string;
             context.workspaceState.update('matlabTerminalId', matlabTerminal.processId);
-            let matlabCommand = matlabPath + ' -nodesktop -nosplash';
-            matlabTerminal.sendText(matlabCommand, true);
-            let matlabArgs = config.get('matlabArgs') as string;
-            for (let i = 0; i < matlabArgs.length; i++) {
-                matlabTerminal.sendText(matlabArgs[i], true);
+            matlabTerminal.sendText(matlabCMD, true);
+            let matlabStartup = config.get('matlabStartup') as string;
+            for (let i = 0; i < matlabStartup.length; i++) {
+                matlabTerminal.sendText(matlabStartup[i], true);
             }
             matlabTerminal.sendText('clc;');
         }

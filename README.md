@@ -19,11 +19,11 @@ Click [here](https://marketplace.visualstudio.com/items?itemName=shinyypig.matla
 
 ## Settings
 
-- `matlabPath`: the path of matlab executable file, default is `matlab`
-- `matlabArgs`: the code to run after starting the matlab, default is empty, you can add some code to set the default figure style, for example:
+- `matlabCMD`: the command to start the Matlab terminal, default is `matlab -nodesktop -nosplash`
+- `matlabStartup`: the code to run after starting the matlab, default is empty, you can add some code to set the default figure style, for example:
 
     ```json
-    "matlab-in-vscode.matlabArgs": [
+    "matlab-in-vscode.matlabStartup": [
         "addpath(genpath('./'));",
         "set(groot, 'defaultLineLineWidth', 2);",
         "set(groot, 'DefaultLineMarkerSize', 8);",
@@ -45,6 +45,10 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
 </div>
 
 ## Release Notes
+
+### 0.1.1
+
+Rename the properties, and add the property that used to start the matlab terminal.
 
 ### 0.1.0
 

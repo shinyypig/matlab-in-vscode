@@ -2,7 +2,7 @@
     "name": "matlab-in-vscode",
     "displayName": "Matlab in VSCode",
     "description": "Run Matlab code in VSCode",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "shinyypig",
     "license": "MIT",
     "icon": "assets/matlab.png",
@@ -24,12 +24,12 @@
         "configuration": {
             "title": "Matlab in VSCode",
             "properties": {
-                "matlab-in-vscode.matlabPath": {
+                "matlab-in-vscode.matlabCMD": {
                     "type": "string",
-                    "default": "matlab",
-                    "description": "Path to matlab executable"
+                    "default": "matlab -nodesktop -nosplash",
+                    "description": "Comand to start Matlab."
                 },
-                "matlab-in-vscode.matlabArgs": {
+                "matlab-in-vscode.matlabStartup": {
                     "type": "array",
                     "default": [],
                     "description": "Arguments to pass to matlab"
@@ -139,19 +139,22 @@
         "test": "node ./out/test/runTest.js"
     },
     "devDependencies": {
-        "@types/vscode": "^1.76.0",
         "@types/glob": "^8.1.0",
         "@types/mocha": "^10.0.1",
         "@types/node": "16.x",
+        "@types/vscode": "^1.76.0",
         "@typescript-eslint/eslint-plugin": "^5.53.0",
         "@typescript-eslint/parser": "^5.53.0",
+        "@vscode/test-electron": "^2.2.3",
         "eslint": "^8.34.0",
         "glob": "^8.1.0",
         "mocha": "^10.2.0",
-        "typescript": "^4.9.5",
         "ts-loader": "^9.4.2",
+        "typescript": "^4.9.5",
         "webpack": "^5.75.0",
-        "webpack-cli": "^5.0.1",
-        "@vscode/test-electron": "^2.2.3"
+        "webpack-cli": "^5.0.1"
+    },
+    "dependencies": {
+        "vsce": "^2.15.0"
     }
 }
