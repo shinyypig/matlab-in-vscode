@@ -34,10 +34,19 @@ export function activate(context: vscode.ExtensionContext) {
         let matlabTerminal = findMatlabTerminal();
         if (matlabTerminal === undefined) {
             matlabTerminal = vscode.window.createTerminal('Matlab');
-            let config = vscode.workspace.getConfiguration('matlab-in-vscode');
-            let matlabCMD = config.get('matlabCMD') as string;
             context.workspaceState.update('matlabTerminalId', matlabTerminal.processId);
-            matlabTerminal.sendText(matlabCMD, true);
+
+            let config = vscode.workspace.getConfiguration('matlab-in-vscode');
+            let matlabPybackend = config.get('matlabPybackend') as boolean;
+            if (matlabPybackend) {
+                let scriptPath = path.join(context.asAbsolutePath(""), "/pybackend/matlab_engine.py");
+                matlabTerminal.sendText('python ' + scriptPath, true);
+            }
+            else {
+                let matlabCMD = config.get('matlabCMD') as string;
+                matlabTerminal.sendText(matlabCMD, true);
+            }
+
             let matlabStartup = config.get('matlabStartup') as string;
             for (let i = 0; i < matlabStartup.length; i++) {
                 matlabTerminal.sendText(matlabStartup[i], true);

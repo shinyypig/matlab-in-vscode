@@ -2,7 +2,7 @@
     "name": "matlab-in-vscode",
     "displayName": "Matlab in VSCode",
     "description": "Run Matlab code in VSCode",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "publisher": "shinyypig",
     "license": "MIT",
     "icon": "assets/matlab.png",
@@ -24,10 +24,15 @@
         "configuration": {
             "title": "Matlab in VSCode",
             "properties": {
+                "matlab-in-vscode.matlabPybackend": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use python matlab engine. (Recommend in Windows)"
+                },
                 "matlab-in-vscode.matlabCMD": {
                     "type": "string",
                     "default": "matlab -nodesktop -nosplash",
-                    "description": "Comand to start Matlab."
+                    "description": "Comand to start Matlab. If using python matlab engine, it will be ignored."
                 },
                 "matlab-in-vscode.matlabStartup": {
                     "type": "array",

@@ -19,7 +19,8 @@ Click [here](https://marketplace.visualstudio.com/items?itemName=shinyypig.matla
 
 ## Settings
 
-- `matlabCMD`: the command to start the Matlab terminal, default is `matlab -nodesktop -nosplash`
+- `matlabPybackend`: It is recommended to use the python backend in Windows. Check this [link](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) for installing MATLAB Engine API for Python.
+- `matlabCMD`: The command to start the Matlab terminal, default is `matlab -nodesktop -nosplash`. If the python backend is used, it will be ignored. In Windows, if you do not want to use the python backend, you can set it to `matlab -nojvm` to run code in the terminal. However, in this case, any function related to gui will not work.
 - `matlabStartup`: the code to run after starting the matlab, default is empty, you can add some code to set the default figure style, for example:
 
     ```json
@@ -45,6 +46,10 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
 </div>
 
 ## Release Notes
+
+### 0.2.0
+
+Add matlab python engine support.
 
 ### 0.1.1
 
