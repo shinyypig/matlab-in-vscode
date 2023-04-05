@@ -26,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
         else {
             matlabTerminal = startMatlab();
-            matlabTerminal.sendText(command);
+            // matlabTerminal.sendText(command);
         }
     }
 
@@ -38,20 +38,24 @@ export function activate(context: vscode.ExtensionContext) {
 
             let config = vscode.workspace.getConfiguration('matlab-in-vscode');
             let matlabPybackend = config.get('matlabPybackend') as boolean;
+            let command = "";
             if (matlabPybackend) {
                 let scriptPath = path.join(context.asAbsolutePath(""), "/pybackend/matlab_engine.py");
-                matlabTerminal.sendText('python ' + scriptPath, true);
+                // matlabTerminal.sendText('python ' + scriptPath, true);
+                command += 'python ' + scriptPath + '\n';
             }
             else {
                 let matlabCMD = config.get('matlabCMD') as string;
-                matlabTerminal.sendText(matlabCMD, true);
+                // matlabTerminal.sendText(matlabCMD, true);
+                command += matlabCMD + '\n';
             }
 
             let matlabStartup = config.get('matlabStartup') as string;
             for (let i = 0; i < matlabStartup.length; i++) {
-                matlabTerminal.sendText(matlabStartup[i], true);
+                // matlabTerminal.sendText(matlabStartup[i], true);
+                command += matlabStartup[i] + '\n';
             }
-            matlabTerminal.sendText('clc;');
+            matlabTerminal.sendText(command);
         }
         matlabTerminal.show(true);
         return matlabTerminal;

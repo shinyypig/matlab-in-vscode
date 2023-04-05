@@ -17,7 +17,7 @@ class MatlabEngine:
         if not import_fail:
             try:
                 self.eng = matlab.engine.start_matlab('-nodesktop -nosplash')
-                print("MATLAB Engine for Python is ready.")
+                print('-'*20 + "MATLAB Engine for Python is ready." + '-'*20)
             except MatlabTerminated as e:
                 print(str(e))
                 print("MATLAB Engine for Python exited prematurely.")
@@ -44,16 +44,13 @@ class MatlabEngine:
             except:
                 pass
 
-            if command == "quit" or command == "quit()":
+            if command == "quit":
                 loop = False
-
-            elif command == "clc" or command == "clc()":
-                self.clear()
-
             else:
                 try:
                     self.eng.eval(command, nargout=0)
-
+                    if "clc\n" in command:
+                        self.clear()
                 except MatlabTerminated:
                     print("MATLAB process terminated.")
                     print("Restarting MATLAB Engine for Python...")
