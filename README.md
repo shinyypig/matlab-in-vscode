@@ -9,7 +9,7 @@ This is a VSCode extension for Matlab. It provides the following features:
 - open the workspace of matlab to inspect the variables
 - open the current file in matlab editor for debugging or other purpose
 
-All functions can be accessed by clicking the button in the menu bar.
+All functions can be accessed by clicking the button in the menu bar. If matlab terminal is not started, the extension will start it automatically. Then, you need to reclick the button to run the command.
 
 <div align=center>
     <img width=50% style=margin:2% src="assets/2023-03-25-11-55-00.png">
@@ -46,6 +46,10 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
 </div>
 
 ## Release Notes
+
+### 0.2.1
+
+If matlab terminal is not started, the extension will start it automatically.
 
 ### 0.2.0
 
