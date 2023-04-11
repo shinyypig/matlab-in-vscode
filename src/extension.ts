@@ -26,7 +26,6 @@ export function activate(context: vscode.ExtensionContext) {
         }
         else {
             matlabTerminal = startMatlab();
-            // matlabTerminal.sendText(command);
         }
     }
 
@@ -105,7 +104,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
-    function interupt() {
+    function interruptMatlab() {
         let matlabTerminal = findMatlabTerminal();
         if (matlabTerminal !== undefined) {
             // send ctrl+c
@@ -145,8 +144,8 @@ export function activate(context: vscode.ExtensionContext) {
     let dispRunMatlabCell = vscode.commands.registerCommand("matlab-in-vscode.runMatlabCell", () => {
         runMatlabCell();
     });
-    let dispInteruptMatlab = vscode.commands.registerCommand("matlab-in-vscode.interupt", () => {
-        interupt();
+    let dispInterruptMatlab = vscode.commands.registerCommand("matlab-in-vscode.interupt", () => {
+        interruptMatlab();
     });
     let dispStopMatlab = vscode.commands.registerCommand("matlab-in-vscode.stop", () => {
         stopMatlab();
@@ -164,7 +163,7 @@ export function activate(context: vscode.ExtensionContext) {
         showMatlabDoc();
     });
 
-    context.subscriptions.push(dispInteruptMatlab);
+    context.subscriptions.push(dispInterruptMatlab);
     context.subscriptions.push(dispRunMatlabCell);
     context.subscriptions.push(dispRunMatlabFile);
     context.subscriptions.push(dispStopMatlab);
