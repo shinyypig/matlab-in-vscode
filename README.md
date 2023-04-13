@@ -23,19 +23,19 @@ Click [here](https://marketplace.visualstudio.com/items?itemName=shinyypig.matla
 - `matlabCMD`: The command to start the Matlab terminal, default is `matlab -nodesktop -nosplash`. If the python backend is used, it will be ignored. In Windows, if you do not want to use the python backend, you can set it to `matlab -nojvm` to run code in the terminal. However, in this case, any function related to gui will not work.
 - `matlabStartup`: the code to run after starting the matlab, default is empty, you can add some code to set the default figure style, for example:
 
-    ```json
-    "matlab-in-vscode.matlabStartup": [
-        "addpath(genpath('./'));",
-        "set(groot, 'defaultLineLineWidth', 2);",
-        "set(groot, 'DefaultLineMarkerSize', 8);",
-        "set(groot, 'defaultAxesFontSize', 18);",
-        "set(groot, 'defaultAxesXGrid', 'on');",
-        "set(groot, 'defaultAxesYGrid', 'on');",
-        "set(groot, 'defaultAxesBox', 'on');",
-        "set(groot, 'defaultLegendBox', 'off');",
-        "format compact;"
-    ],
-    ```
+  ```json
+  "matlab-in-vscode.matlabStartup": [
+      "addpath(genpath('./'));",
+      "set(groot, 'defaultLineLineWidth', 2);",
+      "set(groot, 'DefaultLineMarkerSize', 8);",
+      "set(groot, 'defaultAxesFontSize', 18);",
+      "set(groot, 'defaultAxesXGrid', 'on');",
+      "set(groot, 'defaultAxesYGrid', 'on');",
+      "set(groot, 'defaultAxesBox', 'on');",
+      "set(groot, 'defaultLegendBox', 'off');",
+      "format compact;"
+  ],
+  ```
 
 ## Cell Mode
 
@@ -46,6 +46,10 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
 </div>
 
 ## Release Notes
+
+### 0.3.0
+
+Add support for matlab python engine in windows. Thanks for @Veng97's contribution.
 
 ### 0.2.1
 
