@@ -1,24 +1,41 @@
 import os
 import sys
 import re
+import argparse
 
 # Check if the Matlab Engine is installed
 try:
     import matlab.engine
     from matlab.engine import RejectedExecutionError as MatlabTerminated
 except ImportError:
-    print("MATLAB Engine for Python cannot be detected. Please install it for the extension to work.")
+    print(
+        "MATLAB Engine for Python cannot be detected. Please install it for the extension to work."
+    )
     sys.exit(1)
-
 
 class MatlabEngine:
     def __init__(self):
+        argParser = argparse.ArgumentParser()
+        argParser.add_argument(
+            "-c",
+            "--cmd",
+            default="",
+            help="The first line of code to execute upon opening the MATLAB session",
+        )
+        args = argParser.parse_args()
+
+        # Bringup MATLAB Engine
         try:
             self.eng = matlab.engine.start_matlab("-nodesktop -nosplash")
             welcome_str = "MATLAB Engine for Python is ready (terminate with 'quit')"
             print("{0}\n{1}\n{0}".format("-" * len(welcome_str), welcome_str))
         except MatlabTerminated as e:
             print("MATLAB Engine for Python exited prematurely:\n{}".format(str(e)))
+            sys.exit(1)
+
+        # Run the startup command if specified
+        if args.cmd:
+            self.execute_command(args.cmd)
 
     def __del__(self):
         print("Terminating MATLAB Engine.")
@@ -33,7 +50,7 @@ class MatlabEngine:
         # Skip parsing comments
         if "%" in command:
             command = command.split("%", 1)[0]
-
+        
         # Handle multi-line functionality for control structures:
         pattern = r"\b(if|for|while|switch|try|parfor|function)\b"
         if re.search(pattern, command):
@@ -48,6 +65,15 @@ class MatlabEngine:
 
         return command.strip()
 
+    def execute_command(self, command):
+        try:
+            self.eng.eval(command, nargout=0)
+        except MatlabTerminated as e:
+            print("MATLAB Engine for Python exited prematurely:\n{}".format(str(e)))
+            sys.exit(1)
+        except:  # The other exceptions are handled by MATLAB
+            pass
+        
     def interactive_loop(self):
         while True:
             # Await input command
@@ -66,13 +92,7 @@ class MatlabEngine:
                 self.clear()
             # Evaluate command in MATLAB
             else:
-                try:
-                    self.eng.eval(command, nargout=0)
-                except MatlabTerminated as e:
-                    print("MATLAB Engine for Python exited prematurely:\n{}".format(str(e)))
-                    break
-                except:  # The other exceptions are handled by MATLAB
-                    pass
+                self.execute_command(command)
 
 
 if __name__ == "__main__":
