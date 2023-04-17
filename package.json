@@ -36,7 +36,9 @@
                 },
                 "matlab-in-vscode.matlabStartup": {
                     "type": "array",
-                    "default": [],
+                    "default": [
+                        "fprintf('Working directory: %s\\n', pwd);"
+                    ],
                     "description": "Arguments to pass to matlab"
                 }
             }
