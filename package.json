@@ -2,7 +2,7 @@
     "name": "matlab-in-vscode",
     "displayName": "Matlab in VSCode",
     "description": "Run Matlab code in VSCode",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "publisher": "shinyypig",
     "license": "MIT",
     "icon": "assets/matlab.png",

@@ -47,6 +47,10 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
 
 ## Release Notes
 
+### 0.3.1
+
+Add startup command support for matlab python engine. Thanks for @Veng97's contribution.
+
 ### 0.3.0
 
 Add support for matlab python engine in windows. Thanks for @Veng97's contribution.
