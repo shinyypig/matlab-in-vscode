@@ -67,7 +67,6 @@ export function activate(context: vscode.ExtensionContext) {
             let activeLine = activeTextEditor.document.lineAt(activeTextEditor.selection.active).lineNumber;
             let lines = code.split("\n");
             let codeToRun = '';
-
             // find the cell that contains the current line
             let cellStart = activeLine;
             while (cellStart > 0) {
@@ -76,12 +75,15 @@ export function activate(context: vscode.ExtensionContext) {
                 }
                 cellStart--;
             }
-            let cellEnd = activeLine;
+            let cellEnd = activeLine + 1;
             while (cellEnd < lines.length) {
                 if (lines[cellEnd].startsWith('%%')) {
                     break;
                 }
                 cellEnd++;
+            }
+            if (lines[cellStart].startsWith('%%')) {
+                cellStart++;
             }
             codeToRun = lines.slice(cellStart, cellEnd).join('\n');
             sendToMatlab(codeToRun);

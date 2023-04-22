@@ -47,6 +47,10 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
 
 ## Release Notes
 
+### 0.3.2
+
+Remove `%%` when running a cell.
+
 ### 0.3.1
 
 Add startup command support for matlab python engine. Thanks for @Veng97's contribution.
