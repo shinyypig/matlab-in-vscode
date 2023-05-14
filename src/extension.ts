@@ -47,7 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
             let bringupCommand = "";
             if (matlabPybackend) {
                 let scriptPath = path.join(context.asAbsolutePath(""), "/pybackend/matlab_engine.py");
-                bringupCommand = `python ${scriptPath} --cmd="""${startupCommand}"""\n`;
+                bringupCommand = `python "${scriptPath}" --cmd="""${startupCommand}"""\n`;
             }
             else {
                 let matlabCMD = config.get('matlabCMD') as string;
@@ -93,7 +93,7 @@ export function activate(context: vscode.ExtensionContext) {
     function runMatlabFile() {
         let filePath = vscode.window.activeTextEditor?.document.fileName;
         if (filePath !== undefined) {
-            let matlabCommand = `run('${filePath}')`;
+            let matlabCommand = `run("${filePath}")`;
             sendToMatlab(matlabCommand);
         }
     }

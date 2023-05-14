@@ -13,6 +13,7 @@ except ImportError:
     )
     sys.exit(1)
 
+
 class MatlabEngine:
     def __init__(self):
         argParser = argparse.ArgumentParser()
@@ -50,7 +51,7 @@ class MatlabEngine:
         # Skip parsing comments
         if "%" in command:
             command = command.split("%", 1)[0]
-        
+
         # Handle multi-line functionality for control structures:
         pattern = r"\b(if|for|while|switch|try|parfor|function)\b"
         if re.search(pattern, command):
@@ -73,7 +74,7 @@ class MatlabEngine:
             sys.exit(1)
         except:  # The other exceptions are handled by MATLAB
             pass
-        
+
     def interactive_loop(self):
         while True:
             # Await input command

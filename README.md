@@ -47,6 +47,10 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
 
 ## Release Notes
 
+### 0.3.3
+
+Add double quotes for the path of the `matlab_engine.py` file, when using pybackend.
+
 ### 0.3.2
 
 Remove `%%` when running a cell.
