@@ -8,7 +8,8 @@
 This is a VSCode extension for Matlab. It provides the following features:
 
 -   run a complete matlab .m file
--   run a cell in matlab code by press `ctrl+enter` or `cmd+enter`
+-   run a cell in matlab by press `ctrl+enter` or `cmd+enter`
+-   run current line and move to next in matlab by press `shift+enter`
 -   interrupt matlab process by clicking the stop button
 -   change the work directory of matlab to the directory of the current file
 -   open the workspace of matlab to inspect the variables
@@ -24,8 +25,9 @@ Click [here](https://marketplace.visualstudio.com/items?itemName=shinyypig.matla
 
 ## Settings
 
--   `matlabPybackend`: It is recommended to use the python backend in Windows. Check this [link](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) for installing MATLAB Engine API for Python.
 -   `matlabCMD`: The command to start the Matlab terminal, default is `matlab -nodesktop -nosplash`. If the python backend is used, it will be ignored. In Windows, if you do not want to use the python backend, you can set it to `matlab -nojvm` to run code in the terminal. However, in this case, any function related to gui will not work.
+-   `matlabMoveToNext`: If set to true, the cursor will move to the next line after running the current line. Default is true.
+-   `matlabPybackend`: It is recommended to use the python backend in Windows. Check this [link](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) for installing MATLAB Engine API for Python.
 -   `matlabStartup`: the code to run after starting the matlab, default is empty, you can add some code to set the default figure style, for example:
 
     ```json
@@ -42,6 +44,7 @@ Click [here](https://marketplace.visualstudio.com/items?itemName=shinyypig.matla
     ],
     ```
 
+
 ## Cell Mode
 
 You can split your code by `%%`, click the run cell button or simply press `ctrl+enter` (mac: `cmd+enter`) to run the active cell.
@@ -51,6 +54,10 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
 </div>
 
 ## Release Notes
+
+### 0.3.4
+
+Add shortcut for running current line and move to next.
 
 ### 0.3.3
 

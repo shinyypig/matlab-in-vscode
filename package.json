@@ -40,6 +40,11 @@
                         "fprintf('Working directory: %s\\n', pwd);"
                     ],
                     "description": "Arguments to pass to matlab"
+                },
+                "matlab-in-vscode.matlabMoveToNext": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to move to next line after run current line."
                 }
             }
         },
@@ -53,6 +58,11 @@
                 "command": "matlab-in-vscode.runMatlabCell",
                 "title": "Run Current Matlab Cell",
                 "icon": "$(notebook-execute)",
+                "when": "editorTextFocus && editorLangId == matlab"
+            },
+            {
+                "command": "matlab-in-vscode.runMatlabLine",
+                "title": "Run Current Line",
                 "when": "editorTextFocus && editorLangId == matlab"
             },
             {
@@ -91,6 +101,12 @@
                 "command": "matlab-in-vscode.runMatlabCell",
                 "key": "ctrl+enter",
                 "mac": "cmd+enter",
+                "when": "editorTextFocus && editorLangId == matlab"
+            },
+            {
+                "command": "matlab-in-vscode.runMatlabLine",
+                "key": "shift+enter",
+                "mac": "shift+enter",
                 "when": "editorTextFocus && editorLangId == matlab"
             }
         ],

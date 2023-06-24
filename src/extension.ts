@@ -9,6 +9,12 @@ export function activate(context: vscode.ExtensionContext) {
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
 
+    let config = vscode.workspace.getConfiguration('matlab-in-vscode');
+    let matlabPybackend = config.get('matlabPybackend') as boolean;
+    let matlabStartup = config.get('matlabStartup') as string;
+    let matlabCMD = config.get('matlabCMD') as string;
+    let matlabMoveToNext = config.get('matlabMoveToNext') as boolean;
+
     function findMatlabTerminal() {
         let matlabTerminalId = context.workspaceState.get('matlabTerminalId');
         if (matlabTerminalId !== undefined) {
@@ -34,10 +40,6 @@ export function activate(context: vscode.ExtensionContext) {
         if (matlabTerminal === undefined) {
             matlabTerminal = vscode.window.createTerminal('Matlab');
             context.workspaceState.update('matlabTerminalId', matlabTerminal.processId);
-
-            let config = vscode.workspace.getConfiguration('matlab-in-vscode');
-            let matlabPybackend = config.get('matlabPybackend') as boolean;
-            let matlabStartup = config.get('matlabStartup') as string;
             
             let startupCommand = "";
             for (let i = 0; i < matlabStartup.length; i++) {
@@ -50,7 +52,6 @@ export function activate(context: vscode.ExtensionContext) {
                 bringupCommand = `python "${scriptPath}" --cmd="""${startupCommand}"""\n`;
             }
             else {
-                let matlabCMD = config.get('matlabCMD') as string;
                 bringupCommand = matlabCMD + '\n' + startupCommand + '\n';
             }
 
@@ -82,11 +83,26 @@ export function activate(context: vscode.ExtensionContext) {
                 }
                 cellEnd++;
             }
-            if (lines[cellStart].startsWith('%%')) {
-                cellStart++;
-            }
+            // if (lines[cellStart].startsWith('%%')) {
+            //     cellStart++;
+            // }
             codeToRun = lines.slice(cellStart, cellEnd).join('\n');
             sendToMatlab(codeToRun);
+        }
+    }
+
+    function runMatlabLine() {
+        let activeTextEditor = vscode.window.activeTextEditor;
+        if (activeTextEditor) {
+            let code = activeTextEditor.document.getText();
+            let activeLine = activeTextEditor.document.lineAt(activeTextEditor.selection.active).lineNumber;
+            let lines = code.split("\n");
+            let codeToRun = lines[activeLine];
+            sendToMatlab(codeToRun);
+        }
+        // move to next line
+        if (matlabMoveToNext) {
+            vscode.commands.executeCommand('cursorMove', { to: 'down', by: 'line', value: 1 });
         }
     }
 
@@ -146,6 +162,9 @@ export function activate(context: vscode.ExtensionContext) {
     let dispRunMatlabCell = vscode.commands.registerCommand("matlab-in-vscode.runMatlabCell", () => {
         runMatlabCell();
     });
+    let dispRunMatlabLine = vscode.commands.registerCommand("matlab-in-vscode.runMatlabLine", () => {
+        runMatlabLine();
+    });
     let dispInterruptMatlab = vscode.commands.registerCommand("matlab-in-vscode.interupt", () => {
         interruptMatlab();
     });
@@ -167,6 +186,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(dispInterruptMatlab);
     context.subscriptions.push(dispRunMatlabCell);
+    context.subscriptions.push(dispRunMatlabLine);
     context.subscriptions.push(dispRunMatlabFile);
     context.subscriptions.push(dispStopMatlab);
     context.subscriptions.push(dispCdFileDirectory);
