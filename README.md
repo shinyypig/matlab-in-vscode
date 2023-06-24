@@ -53,53 +53,6 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
     <img width=50% style=margin:2% src="assets/iShot_2023-03-25_11.52.16.gif">
 </div>
 
-## Release Notes
+## Change Log
 
-### 0.3.4
-
-Add shortcut for running current line and move to next.
-
-### 0.3.3
-
-Add double quotes for the path of the `matlab_engine.py` file, when using pybackend.
-
-### 0.3.2
-
-Remove `%%` when running a cell.
-
-### 0.3.1
-
-Add startup command support for matlab python engine. Thanks for @Veng97's contribution.
-
-### 0.3.0
-
-Add support for matlab python engine in windows. Thanks for @Veng97's contribution.
-
-### 0.2.1
-
-If matlab terminal is not started, the extension will start it automatically.
-
-### 0.2.0
-
-Add matlab python engine support.
-
-### 0.1.1
-
-Rename the properties, and add the property that used to start the matlab terminal.
-
-### 0.1.0
-
-Add split line for each cell.
-Add a button to open the help document of matlab.
-
-### 0.0.3
-
-Fix keybinding issue.
-
-### 0.0.2
-
-Add an icon for the extension.
-
-### 0.0.1
-
-First release!!!
+See [CHANGELOG.md](CHANGELOG.md).
