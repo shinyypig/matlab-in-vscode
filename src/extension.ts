@@ -2,6 +2,22 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import * as path from "path";
+
+function removeComment(lines: string[]) {
+    // remove string after %
+    let codeToRun = "";
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+        let commentIndex = line.indexOf("%");
+        if (commentIndex != -1) {
+            line = line.slice(0, commentIndex);
+        }
+        codeToRun += line + "\\n";
+    }
+    codeToRun = 'disp(evalc(char(sprintf("' + codeToRun + '"))));';
+    return codeToRun;
+}
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -74,7 +90,6 @@ export function activate(context: vscode.ExtensionContext) {
                 activeTextEditor.selection.active
             ).lineNumber;
             let lines = code.split("\n");
-            let codeToRun = "";
             // find the cell that contains the current line
             let cellStart = activeLine;
             while (cellStart > 0) {
@@ -90,10 +105,7 @@ export function activate(context: vscode.ExtensionContext) {
                 }
                 cellEnd++;
             }
-            // if (lines[cellStart].startsWith('%%')) {
-            //     cellStart++;
-            // }
-            codeToRun = lines.slice(cellStart, cellEnd).join("\n");
+            let codeToRun = removeComment(lines.slice(cellStart, cellEnd));
             sendToMatlab(codeToRun);
         }
     }
@@ -123,7 +135,7 @@ export function activate(context: vscode.ExtensionContext) {
                     });
                 }
             } else {
-                codeToRun = lines.slice(startLine, endLine + 1).join("\n");
+                codeToRun = removeComment(lines.slice(startLine, endLine + 1));
             }
             sendToMatlab(codeToRun);
         }
