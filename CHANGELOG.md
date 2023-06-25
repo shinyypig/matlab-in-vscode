@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.0
+
+Now you can view variables directly in VSCode. Click the button in the menu bar to open a webview to inspect the variables.
+
 ## 0.3.5
 
 If multiple lines are selected, press `Shift+Enter` will run the selected lines (#9).
