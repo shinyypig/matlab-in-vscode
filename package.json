@@ -2,7 +2,7 @@
     "name": "matlab-in-vscode",
     "displayName": "Matlab in VSCode",
     "description": "Run Matlab code in VSCode",
-    "version": "0.3.5",
+    "version": "0.4.0",
     "publisher": "shinyypig",
     "license": "MIT",
     "icon": "assets/matlab.png",
@@ -178,6 +178,7 @@
         "webpack-cli": "^5.0.1"
     },
     "dependencies": {
-        "vsce": "^2.15.0"
+        "csv-parser": "^3.0.0",
+        "vsce": "^0.9.0"
     }
 }
