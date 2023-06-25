@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.3.5
+
+If multiple lines are selected, press `Shift+Enter` will run the selected lines (#9).
+
 ## 0.3.4
 
 Add shortcut for running current line and move to next (#9).
