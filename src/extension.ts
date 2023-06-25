@@ -14,9 +14,9 @@ function removeComment(lines: string[]) {
         if (commentIndex != -1) {
             line = line.slice(0, commentIndex);
         }
-        codeToRun += line + "\\n";
+        codeToRun += line + "\n";
     }
-    codeToRun = 'disp(evalc(char(sprintf("' + codeToRun + '"))));';
+    // codeToRun = 'disp(evalc(char(sprintf("' + codeToRun + '"))));';
     return codeToRun;
 }
 

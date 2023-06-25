@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.1
+
+Revert to previous command send mode.
+
 ## 0.4.0
 
 Now you can view variables directly in VSCode. Click the button in the menu bar to open a webview to inspect the variables.
