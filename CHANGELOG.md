@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.2
+
+Bug fix.
+
 ## 0.4.1
 
 Revert to previous command send mode.

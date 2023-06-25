@@ -5,21 +5,6 @@ import * as path from "path";
 import * as fs from "fs";
 import * as csv from "csv-parser";
 
-function removeComment(lines: string[]) {
-    // remove string after %
-    let codeToRun = "";
-    for (let i = 0; i < lines.length; i++) {
-        let line = lines[i];
-        let commentIndex = line.indexOf("%");
-        if (commentIndex != -1) {
-            line = line.slice(0, commentIndex);
-        }
-        codeToRun += line + "\n";
-    }
-    // codeToRun = 'disp(evalc(char(sprintf("' + codeToRun + '"))));';
-    return codeToRun;
-}
-
 function readFileStream(filePath: string): Promise<string> {
     return new Promise((resolve, reject) => {
         let htmlContent = `
@@ -178,7 +163,7 @@ export function activate(context: vscode.ExtensionContext) {
                 }
                 cellEnd++;
             }
-            let codeToRun = removeComment(lines.slice(cellStart, cellEnd));
+            let codeToRun = lines.slice(cellStart, cellEnd).join("\n");
             sendToMatlab(codeToRun);
         }
     }
@@ -208,7 +193,7 @@ export function activate(context: vscode.ExtensionContext) {
                     });
                 }
             } else {
-                codeToRun = removeComment(lines.slice(startLine, endLine + 1));
+                codeToRun = lines.slice(startLine, endLine + 1).join("\n");
             }
             sendToMatlab(codeToRun);
         }
