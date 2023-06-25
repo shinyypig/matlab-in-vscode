@@ -2,6 +2,8 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import * as path from "path";
+import * as fs from "fs";
+import * as csv from "csv-parser";
 
 function removeComment(lines: string[]) {
     // remove string after %
@@ -18,6 +20,71 @@ function removeComment(lines: string[]) {
     return codeToRun;
 }
 
+function readFileStream(filePath: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        let htmlContent = `
+            <style>
+            table {
+                font-size: 14px;
+                width: 100%;
+                table-layout: fixed;
+                border-collapse: collapse;
+                margin: 10px;
+            }
+            td, th {
+                border: 1px solid gray;
+                padding: 5px;
+                text-align: left;
+            }
+            </style>
+            <table>`;
+
+        const readStream = fs.createReadStream(filePath);
+
+        readStream
+            .pipe(csv())
+            .on("headers", (headers: string[]) => {
+                htmlContent += "<tr>";
+                headers.forEach((header) => {
+                    htmlContent += `<th>${header}</th>`;
+                });
+                htmlContent += "</tr>";
+            })
+            .on("data", (row: any) => {
+                htmlContent += "<tr>";
+                for (let key in row) {
+                    htmlContent += `<td>${row[key]}</td>`;
+                }
+                htmlContent += "</tr>";
+            })
+            .on("end", () => {
+                htmlContent += "</table>";
+                fs.unlink(filePath, (err) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(htmlContent);
+                    }
+                });
+            })
+            .on("error", (err: Error) => {
+                reject(err);
+            });
+    });
+}
+
+async function getScopeWebViewHtml(
+    filePath: string,
+    delay: number
+): Promise<string> {
+    if (fs.existsSync(filePath)) {
+        return await readFileStream(filePath);
+    } else {
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        return await getScopeWebViewHtml(filePath, delay);
+    }
+}
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -30,6 +97,7 @@ export function activate(context: vscode.ExtensionContext) {
     let matlabStartup = config.get("matlabStartup") as string;
     let matlabCMD = config.get("matlabCMD") as string;
     let matlabMoveToNext = config.get("matlabMoveToNext") as boolean;
+    let matlabScope: vscode.WebviewPanel | undefined;
 
     function findMatlabTerminal() {
         let matlabTerminalId = context.workspaceState.get("matlabTerminalId");
@@ -46,6 +114,7 @@ export function activate(context: vscode.ExtensionContext) {
         let matlabTerminal = findMatlabTerminal();
         if (matlabTerminal !== undefined) {
             matlabTerminal.sendText(command);
+            updateScope();
         } else {
             matlabTerminal = startMatlab();
         }
@@ -64,6 +133,10 @@ export function activate(context: vscode.ExtensionContext) {
             for (let i = 0; i < matlabStartup.length; i++) {
                 startupCommand += matlabStartup[i];
             }
+            startupCommand +=
+                "addpath('" +
+                path.join(context.asAbsolutePath(""), "/matlab_code/") +
+                "');\n";
 
             let bringupCommand = "";
             if (matlabPybackend) {
@@ -173,9 +246,54 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
+    function updateScope() {
+        let matlabTerminal = findMatlabTerminal();
+        if (matlabTerminal == undefined) {
+            return;
+        }
+
+        matlabTerminal.sendText("variable_info;");
+        // read tmp.csv and display it in the webview
+        let workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
+        if (workspacePath === undefined) {
+            return;
+        }
+
+        let csvPath = path.join(
+            workspacePath,
+            "matlabInVSCodeVariableInfo.csv"
+        );
+        getScopeWebViewHtml(csvPath, 500).then((htmlContent) => {
+            if (matlabScope == undefined) {
+                return;
+            }
+            matlabScope.webview.html = htmlContent;
+        });
+    }
+
     function showVariable() {
-        let command = "workspace";
-        sendToMatlab(command);
+        let matlabTerminal = findMatlabTerminal();
+        if (matlabTerminal == undefined) {
+            matlabTerminal = startMatlab();
+            return;
+        }
+        if (matlabScope) {
+            matlabScope.reveal();
+        } else {
+            matlabScope = vscode.window.createWebviewPanel(
+                "matlabScope",
+                "Matlab Variable Scope",
+                vscode.ViewColumn.Beside,
+                {
+                    // Enable scripts in the webview
+                    enableScripts: true,
+                }
+            );
+            matlabScope.onDidDispose(() => {
+                matlabScope = undefined;
+            });
+        }
+        updateScope();
     }
 
     function editInMatlab() {

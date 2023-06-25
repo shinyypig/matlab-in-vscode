@@ -5,11 +5,17 @@
 ![version](https://img.shields.io/visual-studio-marketplace/v/shinyypig.matlab-in-vscode)
 ![last_commit](https://img.shields.io/github/last-commit/shinyypig/matlab-in-vscode)
 
-This is a VSCode extension for Matlab. It provides the following features:
+This is a VSCode extension for Matlab. It provides the following features.
 
--   run a complete matlab .m file
+Major:
+
+-   view variables directly in VSCode
 -   run a cell in matlab by press `ctrl+enter` or `cmd+enter`
 -   run current line and move to next in matlab by press `shift+enter`
+
+Minor:
+
+-   run a complete matlab .m file
 -   interrupt matlab process by clicking the stop button
 -   change the work directory of matlab to the directory of the current file
 -   open the workspace of matlab to inspect the variables
@@ -22,6 +28,22 @@ All functions can be accessed by clicking the button in the menu bar. If matlab 
 </div>
 
 Click [here](https://marketplace.visualstudio.com/items?itemName=shinyypig.matlab-in-vscode) to install the extension.
+
+## View Workspace
+
+You can click the button in the menu bar to open a webview to inspect the variables. Though it is not as powerful as the matlab workspace, it is enough for simple inspection.
+
+<div align=center>
+    <img width=50% style=margin:2% src="assets/2023-06-25-20-16-14.png">
+</div>
+
+## Cell Mode
+
+You can split your code by `%%`, click the run cell button or simply press `ctrl+enter` (mac: `cmd+enter`) to run the active cell.
+
+<div align=center>
+    <img width=50% style=margin:2% src="assets/iShot_2023-03-25_11.52.16.gif">
+</div>
 
 ## Settings
 
@@ -43,15 +65,6 @@ Click [here](https://marketplace.visualstudio.com/items?itemName=shinyypig.matla
         "format compact;"
     ],
     ```
-
-
-## Cell Mode
-
-You can split your code by `%%`, click the run cell button or simply press `ctrl+enter` (mac: `cmd+enter`) to run the active cell.
-
-<div align=center>
-    <img width=50% style=margin:2% src="assets/iShot_2023-03-25_11.52.16.gif">
-</div>
 
 ## Change Log
 
