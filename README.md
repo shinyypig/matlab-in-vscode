@@ -37,6 +37,8 @@ You can click the button in the menu bar to open a webview to inspect the variab
     <img width=50% style=margin:2% src="assets/2023-06-25-20-16-14.png">
 </div>
 
+Notice that a file named `matlabInVSCodeVariableInfo.csv` will be generated in the current directory. It is used to store the variable information. Normally, this file will be automatically deleted immediately. However, if some error occurs, it may not be deleted. You should delete it manually.
+
 ## Cell Mode
 
 You can split your code by `%%`, click the run cell button or simply press `ctrl+enter` (mac: `cmd+enter`) to run the active cell.
