@@ -2,7 +2,7 @@
     "name": "matlab-in-vscode",
     "displayName": "Matlab in VSCode",
     "description": "Run Matlab code in VSCode",
-    "version": "0.4.3",
+    "version": "0.4.4",
     "publisher": "shinyypig",
     "license": "MIT",
     "icon": "assets/matlab.png",
@@ -37,7 +37,7 @@
                 "matlab-in-vscode.matlabStartup": {
                     "type": "array",
                     "default": [
-                        "fprintf('Working directory: %s\\n', pwd);"
+                        "disp(['Working directory: ', pwd]);"
                     ],
                     "description": "Arguments to pass to matlab"
                 },

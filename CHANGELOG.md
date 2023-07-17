@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.4
+
+Fix default matlab-in-vscode.matlabStartup command.
+
 ## 0.4.3
 
 Fix python statupcommand.
