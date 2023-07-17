@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.5
+
+Revert to previous method to send startup command in pybackend.
+
 ## 0.4.4
 
 Fix default matlab-in-vscode.matlabStartup command.
