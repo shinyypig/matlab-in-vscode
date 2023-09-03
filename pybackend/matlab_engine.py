@@ -49,8 +49,8 @@ class MatlabEngine:
         command = sys.stdin.readline()
 
         # Skip parsing comments
-        if "%" in command:
-            command = command.split("%", 1)[0]
+        # if "%" in command:
+        #     command = command.split("%", 1)[0]
 
         # Handle multi-line functionality for control structures:
         pattern = r"\b(if|for|while|switch|try|parfor|function)\b"
