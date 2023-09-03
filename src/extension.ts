@@ -98,6 +98,11 @@ export function activate(context: vscode.ExtensionContext) {
     function sendToMatlab(command: string) {
         let matlabTerminal = findMatlabTerminal();
         if (matlabTerminal !== undefined) {
+            command += "\nvariable_info;";
+            if (matlabPybackend) {
+                // replace \n with \%**newline**\%
+                command = command.replace(/\n/g, "\\%**newline**\\%");
+            }
             matlabTerminal.sendText(command);
             updateScope();
         } else {
@@ -183,7 +188,7 @@ export function activate(context: vscode.ExtensionContext) {
             ).lineNumber;
             let lines = code.split("\n");
             var codeToRun = "";
-            if (startLine == endLine) {
+            if (startLine === endLine) {
                 codeToRun = lines[activeLine];
                 if (matlabMoveToNext) {
                     vscode.commands.executeCommand("cursorMove", {
@@ -235,11 +240,11 @@ export function activate(context: vscode.ExtensionContext) {
 
     function updateScope() {
         let matlabTerminal = findMatlabTerminal();
-        if (matlabTerminal == undefined) {
+        if (matlabTerminal === undefined) {
             return;
         }
 
-        matlabTerminal.sendText("variable_info;");
+        // matlabTerminal.sendText("variable_info;");
         // read tmp.csv and display it in the webview
         let workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
         if (workspacePath === undefined) {
@@ -251,7 +256,7 @@ export function activate(context: vscode.ExtensionContext) {
             "matlabInVSCodeVariableInfo.csv"
         );
         getScopeWebViewHtml(csvPath, 500).then((htmlContent) => {
-            if (matlabScope == undefined) {
+            if (matlabScope === undefined) {
                 return;
             }
             matlabScope.webview.html = htmlContent;
@@ -260,7 +265,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     function showVariable() {
         let matlabTerminal = findMatlabTerminal();
-        if (matlabTerminal == undefined) {
+        if (matlabTerminal === undefined) {
             matlabTerminal = startMatlab();
             return;
         }
@@ -280,6 +285,7 @@ export function activate(context: vscode.ExtensionContext) {
                 matlabScope = undefined;
             });
         }
+        matlabTerminal.sendText("variable_info;");
         updateScope();
     }
 

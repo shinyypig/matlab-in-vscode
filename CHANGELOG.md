@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.7
+
+Improve the code input method for pybackend.
+
 ## 0.4.6
 
 Fix the bug that the pybackend will treat any % as a comment.
