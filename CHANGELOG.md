@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.6
+
+Fix the bug that the pybackend will treat any % as a comment.
+
 ## 0.4.5
 
 Revert to previous method to send startup command in pybackend.
