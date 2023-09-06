@@ -11,15 +11,21 @@ function variable_info()
     fid = fopen('matlabInVSCodeVariableInfo.csv', 'wt');
 
     % Print the headers
-    fprintf(fid, 'Name,Size,Class\n');
+    fprintf(fid, 'Name,Value,Class\n'); % 添加一个 Value 列头
 
     % Loop over the variables
     for idx = 1:length(info)
-        % Format the size as e.g. "5x5x5"
-        size_str = strjoin(string(info(idx).size), 'x');
+        % Check if the variable size is 1x1 and is numeric or string
+        if isequal(info(idx).size, [1 1]) && ((isnumeric(evalin('base', info(idx).name)) || isstring(evalin('base', info(idx).name))))
+            value = evalin('base', info(idx).name);
+            value_str = num2str(value);
+        else
+            % Format the size as e.g. "[5 5 5]"
+            value_str = strjoin(string(info(idx).size), 'x');
+        end
 
         % Print the variable information to the file
-        fprintf(fid, '%s,%s,%s\n', info(idx).name, size_str, info(idx).class);
+        fprintf(fid, '%s,%s,%s\n', info(idx).name, value_str, info(idx).class);
     end
 
     % Close the file
