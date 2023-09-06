@@ -103,7 +103,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
         let matlabTerminal = findMatlabTerminal();
         if (matlabTerminal !== undefined) {
-            command += "\nvariable_info;";
+            command += "\nvariable_info;\n";
             matlabTerminal.sendText(command);
             updateScope();
         } else {

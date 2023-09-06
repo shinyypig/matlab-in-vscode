@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.11
+
+Add \n after variable_info.
+
 ## 0.4.10
 
 Able to show content of number or string variables.
