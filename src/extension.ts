@@ -96,6 +96,11 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     function sendToMatlab(command: string) {
+        // save the file
+        let activeTextEditor = vscode.window.activeTextEditor;
+        if (activeTextEditor) {
+            activeTextEditor.document.save();
+        }
         let matlabTerminal = findMatlabTerminal();
         if (matlabTerminal !== undefined) {
             command += "\nvariable_info;";
