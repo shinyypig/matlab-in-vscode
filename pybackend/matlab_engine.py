@@ -2,6 +2,7 @@ import os
 import sys
 import re
 import argparse
+from io import StringIO
 
 # Check if the Matlab Engine is installed
 try:
@@ -47,33 +48,30 @@ class MatlabEngine:
 
     def get_input(self) -> str:
         command = sys.stdin.readline()
-
-        # Skip parsing comments
-        # if "%" in command:
-        #     command = command.split("%", 1)[0]
-
         # Handle multi-line functionality for control structures:
-        # pattern = r"\b(if|for|while|switch|try|parfor|function)\b"
-        # if re.search(pattern, command):
-        #     while True:
-        #         line = self.get_input()
-        #         command += line + "\n"
-        #         if line == "end":
-        #             break
-        # elif command.rstrip().endswith("..."):
-        #     line = self.get_input()
-        #     command += line + "\n"
-
-        # replace \\n with \n
-        command = command.replace("\\%**newline**\\%", "\n")
-        print("\r>>> \n", end="")
+        pattern = r"^[ \t]*(if|for|while|switch|try|parfor|function)\b"
+        if re.search(pattern, command):
+            while True:
+                line = self.get_input()
+                command += line + "\n"
+                if line == "end":
+                    print(command)
+                    break
+        elif command.rstrip().endswith("..."):
+            line = self.get_input()
+            command += line + "\n"
         return command.strip()
 
     def execute_command(self, command):
         try:
-            self.eng.eval(command, nargout=0)
+            stream = StringIO()
+            err_stream = StringIO()
+            self.eng.eval(command, nargout=0, stdout=stream, stderr=err_stream)
+            if len(stream.getvalue()) > 0:
+                print(stream.getvalue())
         except MatlabTerminated as e:
             print("MATLAB Engine for Python exited prematurely:\n{}".format(str(e)))
+            print(stream.getvalue(), err_stream.getvalue(), sep="\n")
             sys.exit(1)
         except:  # The other exceptions are handled by MATLAB
             pass

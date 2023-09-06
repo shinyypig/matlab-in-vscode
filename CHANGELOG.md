@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.8
+
+Support for chinese output and better multi-line functionality handle in pybackend.
+
 ## 0.4.7
 
 Improve the code input method for pybackend.

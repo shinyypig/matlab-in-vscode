@@ -99,10 +99,6 @@ export function activate(context: vscode.ExtensionContext) {
         let matlabTerminal = findMatlabTerminal();
         if (matlabTerminal !== undefined) {
             command += "\nvariable_info;";
-            if (matlabPybackend) {
-                // replace \n with \%**newline**\%
-                command = command.replace(/\n/g, "\\%**newline**\\%");
-            }
             matlabTerminal.sendText(command);
             updateScope();
         } else {
