@@ -80,6 +80,7 @@ export function activate(context: vscode.ExtensionContext) {
     let config = vscode.workspace.getConfiguration("matlab-in-vscode");
     let matlabPybackend = config.get("matlabPybackend") as boolean;
     let matlabStartup = config.get("matlabStartup") as string;
+    let matlabStartupDelay = config.get("matlabStartupDelay") as number;
     let matlabCMD = config.get("matlabCMD") as string;
     let matlabMoveToNext = config.get("matlabMoveToNext") as boolean;
     let matlabScope: vscode.WebviewPanel | undefined;
@@ -140,7 +141,13 @@ export function activate(context: vscode.ExtensionContext) {
                 bringupCommand = matlabCMD + "\n" + startupCommand + "\n";
             }
 
-            matlabTerminal.sendText(bringupCommand);
+            setTimeout(() => {
+                // 在这里，一秒已经过去了。
+                // 现在发送命令到 MATLAB 终端
+                if (matlabTerminal !== undefined) {
+                    matlabTerminal.sendText(bringupCommand);
+                }
+            }, matlabStartupDelay);
         }
         matlabTerminal.show(true);
         return matlabTerminal;

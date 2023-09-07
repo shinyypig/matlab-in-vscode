@@ -2,7 +2,7 @@
     "name": "matlab-in-vscode",
     "displayName": "Matlab in VSCode",
     "description": "Run Matlab code in VSCode",
-    "version": "0.4.11",
+    "version": "0.4.12",
     "publisher": "shinyypig",
     "license": "MIT",
     "icon": "assets/matlab.png",
@@ -40,6 +40,11 @@
                         "disp(['Working directory: ', pwd]);"
                     ],
                     "description": "Arguments to pass to matlab"
+                },
+                "matlab-in-vscode.matlabStartupDelay": {
+                    "type": "number",
+                    "default": 500,
+                    "description": "Time to wait for sending startup commands (ms)"
                 },
                 "matlab-in-vscode.matlabMoveToNext": {
                     "type": "boolean",
