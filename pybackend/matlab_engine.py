@@ -28,7 +28,7 @@ class MatlabEngine:
 
         # Bringup MATLAB Engine
         try:
-            self.eng = matlab.engine.start_matlab("-nodesktop -nosplash")
+            self.eng = matlab.engine.start_matlab()
             welcome_str = "MATLAB Engine for Python is ready (terminate with 'quit')"
             print("{0}\n{1}\n{0}".format("-" * len(welcome_str), welcome_str))
         except MatlabTerminated as e:
@@ -74,7 +74,7 @@ class MatlabEngine:
             print(stream.getvalue(), err_stream.getvalue(), sep="\n")
             sys.exit(1)
         except:  # The other exceptions are handled by MATLAB
-            pass
+            print(stream.getvalue(), err_stream.getvalue(), sep="\n")
 
     def interactive_loop(self):
         while True:
