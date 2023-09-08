@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.14
+
+Publish.
+
 ## 0.4.13
 
 Fix the bug that the pybackend didn't print the error message.
