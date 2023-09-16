@@ -97,18 +97,19 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     function sendToMatlab(command: string) {
-        // save the file
+        // save the file and wait for it to be saved
         let activeTextEditor = vscode.window.activeTextEditor;
         if (activeTextEditor) {
-            activeTextEditor.document.save();
-        }
-        let matlabTerminal = findMatlabTerminal();
-        if (matlabTerminal !== undefined) {
-            command += "\nvariable_info;\n";
-            matlabTerminal.sendText(command);
-            updateScope();
-        } else {
-            matlabTerminal = startMatlab();
+            activeTextEditor.document.save().then(() => {
+                let matlabTerminal = findMatlabTerminal();
+                if (matlabTerminal !== undefined) {
+                    command += "\nvariable_info;\n";
+                    matlabTerminal.sendText(command);
+                    updateScope();
+                } else {
+                    matlabTerminal = startMatlab();
+                }
+            });
         }
     }
 
