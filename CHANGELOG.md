@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.16
+
+Add an option for user to choose the python interpreter. #24
+
 ## 0.4.15
 
 Fix the bug that the command is executed before the file is saved. #20

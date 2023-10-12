@@ -79,6 +79,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     let config = vscode.workspace.getConfiguration("matlab-in-vscode");
     let matlabPybackend = config.get("matlabPybackend") as boolean;
+    let matlabPythonPath = config.get("matlabPythonPath") as string;
     let matlabStartup = config.get("matlabStartup") as string;
     let matlabStartupDelay = config.get("matlabStartupDelay") as number;
     let matlabCMD = config.get("matlabCMD") as string;
@@ -137,7 +138,9 @@ export function activate(context: vscode.ExtensionContext) {
                     context.asAbsolutePath(""),
                     "/pybackend/matlab_engine.py"
                 );
-                bringupCommand = `python "${scriptPath}" --cmd="""${startupCommand}"""`;
+                bringupCommand =
+                    matlabPythonPath +
+                    ` "${scriptPath}" --cmd="""${startupCommand}"""`;
             } else {
                 bringupCommand = matlabCMD + "\n" + startupCommand + "\n";
             }
