@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.17
+
+Fix the quote issue in windows. #25
+
 ## 0.4.16
 
 Add an option for user to choose the python interpreter. #24
