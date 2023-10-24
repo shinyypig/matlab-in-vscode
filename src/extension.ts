@@ -138,7 +138,9 @@ export function activate(context: vscode.ExtensionContext) {
                     context.asAbsolutePath(""),
                     "/pybackend/matlab_engine.py"
                 );
-                bringupCommand = `python "${scriptPath}" --cmd="${startupCommand}"`;
+                bringupCommand =
+                    matlabPythonPath +
+                    ` "${scriptPath}" --cmd="""${startupCommand}"""`;
             } else {
                 bringupCommand = matlabCMD + "\n" + startupCommand + "\n";
             }

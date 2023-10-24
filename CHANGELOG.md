@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.18
+
+Fix #24 again, have no idea why the change was reverted.
+
 ## 0.4.17
 
 Fix the quote issue in windows. #25
