@@ -140,7 +140,7 @@ export function activate(context: vscode.ExtensionContext) {
                 );
                 bringupCommand =
                     matlabPythonPath +
-                    ` "${scriptPath}" --cmd="""${startupCommand}"""`;
+                    ` "${scriptPath}" --cmd="${startupCommand}"`;
             } else {
                 bringupCommand = matlabCMD + "\n" + startupCommand + "\n";
             }
