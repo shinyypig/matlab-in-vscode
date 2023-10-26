@@ -29,6 +29,12 @@ All functions can be accessed by clicking the button in the menu bar. If matlab 
 
 Click [here](https://marketplace.visualstudio.com/items?itemName=shinyypig.matlab-in-vscode) to install the extension.
 
+## Usage
+
+If you are a **windows** user, you may need to installed the MATLAB Engine API for Python, check this [link](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) for more details. Then you need to checkout the `matlabPybackend` option in the settings of the extension.
+
+If you are a **linux** or **mac** user, the default settings are fine. Unless the matlab excuable file is not in the path, you can check the `matlabCMD` option in the settings of the extension.
+
 ## View Workspace
 
 You can click the button in the menu bar to open a webview to inspect the variables. Though it is not as powerful as the matlab workspace, it is enough for simple inspection.
@@ -38,6 +44,8 @@ You can click the button in the menu bar to open a webview to inspect the variab
 </div>
 
 Notice that a file named `matlabInVSCodeVariableInfo.csv` will be generated in the current directory. It is used to store the variable information. Normally, this file will be automatically deleted immediately. However, if some error occurs, it may not be deleted. You should delete it manually.
+
+**Important!!!** You need to open a folder as workspace in the VSCode to make sure that the extension can find the `matlabInVSCodeVariableInfo.csv` file.
 
 ## Cell Mode
 
@@ -52,6 +60,7 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
 -   `matlabCMD`: The command to start the Matlab terminal, default is `matlab -nodesktop -nosplash`. If the python backend is used, it will be ignored. In addition, for windows users, it is recommended to use `matlabPybackend`.
 -   `matlabMoveToNext`: If set to true, the cursor will move to the next line after running the current line. Default is true.
 -   `matlabPybackend`: It is recommended to use the python backend in Windows. Check this [link](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) for installing MATLAB Engine API for Python.
+-   `matlabPythonPath`: If you want to specify the python path, you can set it here.
 -   `matlabStartup`: the code to run after starting the matlab, default is empty, you can add some code to set the default figure style, for example:
 
     ```json
