@@ -8,6 +8,12 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.21
+
+Fix #28.
+
+Use absolute path when running a matlab file.
+
 ## 0.4.20
 
 Update README.md.

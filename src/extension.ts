@@ -219,8 +219,8 @@ export function activate(context: vscode.ExtensionContext) {
     function runMatlabFile() {
         let filePath = vscode.window.activeTextEditor?.document.fileName;
         if (filePath !== undefined) {
-            let relativePath = vscode.workspace.asRelativePath(filePath);
-            let matlabCommand = `run('${relativePath}')`;
+            let absolutePath = path.resolve(filePath);
+            let matlabCommand = `run('${absolutePath}')`;
             console.log(matlabCommand);
             sendToMatlab(matlabCommand);
         }
