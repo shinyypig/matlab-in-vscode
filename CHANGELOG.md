@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.4.22
+
+Fix #29, use workspace folder as the default path.
+
 ## 0.4.21
 
 Fix #28.

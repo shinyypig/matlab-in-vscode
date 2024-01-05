@@ -116,8 +116,13 @@ export function activate(context: vscode.ExtensionContext) {
 
     function startMatlab() {
         let matlabTerminal = findMatlabTerminal();
+        // get workspace path
+        let workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
         if (matlabTerminal === undefined) {
-            matlabTerminal = vscode.window.createTerminal("Matlab");
+            matlabTerminal = vscode.window.createTerminal({
+                name: "MATLAB",
+                cwd: workspacePath,
+            });
             context.workspaceState.update(
                 "matlabTerminalId",
                 matlabTerminal.processId
