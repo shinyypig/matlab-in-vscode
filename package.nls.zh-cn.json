@@ -1,0 +1,17 @@
+{
+    "matlab-in-vscode.matlabPybackend": "使用 Python Matlab 引擎。 (在 Windows 中推荐)",
+    "matlab-in-vscode.matlabPythonPath": "指定 Python 路径。 (只有当 matlabPybackend 为 true 时有效)",
+    "matlab-in-vscode.matlabCMD": "启动 Matlab 的命令。如果使用 Python Matlab 引擎，此项将被忽略。",
+    "matlab-in-vscode.matlabStartup": "传递给 Matlab 的参数",
+    "matlab-in-vscode.matlabStartupDelay": "发送启动命令的等待时间 (毫秒)",
+    "matlab-in-vscode.matlabMoveToNext": "运行当前行后是否移动到下一行。",
+    "matlab-in-vscode.runMatlabFile": "运行当前 Matlab 文件",
+    "matlab-in-vscode.runMatlabCell": "运行当前 Matlab 单元",
+    "matlab-in-vscode.runMatlabLine": "运行当前行",
+    "matlab-in-vscode.interupt": "中断 Matlab",
+    "matlab-in-vscode.cd": "更改 Matlab 工作目录",
+    "matlab-in-vscode.stop": "停止 Matlab",
+    "matlab-in-vscode.variable": "显示变量",
+    "matlab-in-vscode.edit": "在 Matlab 中编辑",
+    "matlab-in-vscode.doc": "显示 Matlab 文档"
+}
