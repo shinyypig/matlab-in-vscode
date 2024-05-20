@@ -27,84 +27,84 @@
                 "matlab-in-vscode.matlabPybackend": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Use python matlab engine. (Recommend in Windows)"
+                    "description": "%matlab-in-vscode.matlabPybackend%"
                 },
                 "matlab-in-vscode.matlabPythonPath": {
                     "type": "string",
                     "default": "python",
-                    "description": "Specify the python path. (Only vaild when matlabPybackend is true)"
+                    "description": "%matlab-in-vscode.matlabPythonPath%"
                 },
                 "matlab-in-vscode.matlabCMD": {
                     "type": "string",
                     "default": "matlab -nodesktop -nosplash",
-                    "description": "Comand to start Matlab. If using python matlab engine, it will be ignored."
+                    "description": "%matlab-in-vscode.matlabCMD%"
                 },
                 "matlab-in-vscode.matlabStartup": {
                     "type": "array",
                     "default": [
                         "disp(['Working directory: ', pwd]);"
                     ],
-                    "description": "Arguments to pass to matlab"
+                    "description": "%matlab-in-vscode.matlabStartup%"
                 },
                 "matlab-in-vscode.matlabStartupDelay": {
                     "type": "number",
                     "default": 500,
-                    "description": "Time to wait for sending startup commands (ms)"
+                    "description": "%matlab-in-vscode.matlabStartupDelay%"
                 },
                 "matlab-in-vscode.matlabMoveToNext": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Whether to move to next line after run current line."
+                    "description": "%matlab-in-vscode.matlabMoveToNext%"
                 }
             }
         },
         "commands": [
             {
                 "command": "matlab-in-vscode.runMatlabFile",
-                "title": "Run Current Matlab File",
+                "title": "%matlab-in-vscode.runMatlabFile%",
                 "icon": "$(notebook-execute-all)"
-            },
-            {
+              },
+              {
                 "command": "matlab-in-vscode.runMatlabCell",
-                "title": "Run Current Matlab Cell",
+                "title": "%matlab-in-vscode.runMatlabCell%",
                 "icon": "$(notebook-execute)",
                 "when": "editorTextFocus && editorLangId == matlab"
-            },
-            {
+              },
+              {
                 "command": "matlab-in-vscode.runMatlabLine",
-                "title": "Run Current Line",
+                "title": "%matlab-in-vscode.runMatlabLine%",
                 "when": "editorTextFocus && editorLangId == matlab"
-            },
-            {
+              },
+              {
                 "command": "matlab-in-vscode.interupt",
-                "title": "Interupt Matlab",
+                "title": "%matlab-in-vscode.interupt%",
                 "icon": "$(notebook-stop)"
-            },
-            {
+              },
+              {
                 "command": "matlab-in-vscode.cd",
-                "title": "Change Matlab Working Directory",
+                "title": "%matlab-in-vscode.cd%",
                 "icon": "$(file-symlink-directory)"
-            },
-            {
+              },
+              {
                 "command": "matlab-in-vscode.stop",
-                "title": "Stop Matlab",
+                "title": "%matlab-in-vscode.stop%",
                 "icon": "$(panel-close)"
-            },
-            {
+              },
+              {
                 "command": "matlab-in-vscode.variable",
-                "title": "Show Variable",
+                "title": "%matlab-in-vscode.variable%",
                 "icon": "$(eye)"
-            },
-            {
+              },
+              {
                 "command": "matlab-in-vscode.edit",
-                "title": "Edit in Matlab",
+                "title": "%matlab-in-vscode.edit%",
                 "icon": "$(pencil)"
-            },
-            {
+              },
+              {
                 "command": "matlab-in-vscode.doc",
-                "title": "Show Matlab Document",
+                "title": "%matlab-in-vscode.doc%",
                 "icon": "$(book)"
-            }
+              }
         ],
         "keybindings": [
             {

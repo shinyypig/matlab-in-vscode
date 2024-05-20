@@ -1,0 +1,17 @@
+{
+    "matlab-in-vscode.matlabPybackend": "Use python matlab engine. (Recommend in Windows)",
+    "matlab-in-vscode.matlabPythonPath": "Specify the python path. (Only vaild when matlabPybackend is true)",
+    "matlab-in-vscode.matlabCMD": "Comand to start Matlab. If using python matlab engine, it will be ignored.",
+    "matlab-in-vscode.matlabStartup": "Arguments to pass to matlab",
+    "matlab-in-vscode.matlabStartupDelay": "Time to wait for sending startup commands (ms)",
+    "matlab-in-vscode.matlabMoveToNext": "Whether to move to next line after run current line.",
+    "matlab-in-vscode.runMatlabFile": "Run Current Matlab File",
+    "matlab-in-vscode.runMatlabCell": "Run Current Matlab Cell",
+    "matlab-in-vscode.runMatlabLine": "Run Current Line",
+    "matlab-in-vscode.interupt": "Interupt Matlab",
+    "matlab-in-vscode.cd": "Change Matlab Working Directory",
+    "matlab-in-vscode.stop": "Stop Matlab",
+    "matlab-in-vscode.variable": "Show Variable",
+    "matlab-in-vscode.edit": "Edit in Matlab",
+    "matlab-in-vscode.doc": "Show Matlab Document"
+}
