@@ -21,7 +21,18 @@ function readFileStream(filePath: string): Promise<string> {
                 padding: 5px;
                 text-align: left;
             }
+            td:active {
+                background-color: gray;
+            }
             </style>
+        
+            <script>
+            const vscode = acquireVsCodeApi();
+            function handleClick(e) {
+                vscode.postMessage({command: "openvar", text: e.innerText});
+            }
+            </script>
+            <body>
             <table>`;
 
         const readStream = fs.createReadStream(filePath);
@@ -37,8 +48,14 @@ function readFileStream(filePath: string): Promise<string> {
             })
             .on("data", (row: any) => {
                 htmlContent += "<tr>";
+                let isFirstKey = true; // 标志变量，初始值为 true，用于每一行
                 for (let key in row) {
-                    htmlContent += `<td>${row[key]}</td>`;
+                    if (isFirstKey) {
+                        htmlContent += `<td onclick='handleClick(this)'>${row[key]}</td>`;
+                        isFirstKey = false; // 处理完第一个键后，将标志变量设为 false
+                    } else {
+                        htmlContent += `<td>${row[key]}</td>`;
+                    }
                 }
                 htmlContent += "</tr>";
             })
@@ -300,6 +317,13 @@ export function activate(context: vscode.ExtensionContext) {
             );
             matlabScope.onDidDispose(() => {
                 matlabScope = undefined;
+            });
+
+            matlabScope.webview.onDidReceiveMessage((message) => {
+                if (message.command === "openvar") {
+                    let command = `openvar("${message.text}")`;
+                    matlabTerminal.sendText(command);
+                }
             });
         }
         matlabTerminal.sendText("variable_info;");
