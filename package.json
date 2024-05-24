@@ -1,194 +1,251 @@
 {
-    "name": "matlab-in-vscode",
-    "displayName": "Matlab in VSCode",
-    "description": "Run Matlab code in VSCode",
-    "version": "0.4.22",
-    "publisher": "shinyypig",
-    "license": "MIT",
-    "icon": "assets/matlab.png",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/shinyypig/matlab-in-vscode"
-    },
-    "engines": {
-        "vscode": "^1.76.0"
-    },
-    "categories": [
-        "Programming Languages"
-    ],
-    "activationEvents": [
-        "onLanguage:matlab"
-    ],
-    "main": "./dist/extension.js",
-    "contributes": {
-        "configuration": {
-            "title": "Matlab in VSCode",
-            "properties": {
-                "matlab-in-vscode.matlabPybackend": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "%matlab-in-vscode.matlabPybackend%"
-                },
-                "matlab-in-vscode.matlabPythonPath": {
-                    "type": "string",
-                    "default": "python",
-                    "description": "%matlab-in-vscode.matlabPythonPath%"
-                },
-                "matlab-in-vscode.matlabCMD": {
-                    "type": "string",
-                    "default": "matlab -nodesktop -nosplash",
-                    "description": "%matlab-in-vscode.matlabCMD%"
-                },
-                "matlab-in-vscode.matlabStartup": {
-                    "type": "array",
-                    "default": [
-                        "disp(['Working directory: ', pwd]);"
-                    ],
-                    "description": "%matlab-in-vscode.matlabStartup%"
-                },
-                "matlab-in-vscode.matlabStartupDelay": {
-                    "type": "number",
-                    "default": 500,
-                    "description": "%matlab-in-vscode.matlabStartupDelay%"
-                },
-                "matlab-in-vscode.matlabMoveToNext": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "%matlab-in-vscode.matlabMoveToNext%"
-                }
-            }
-        },
-        "commands": [
-            {
-                "command": "matlab-in-vscode.runMatlabFile",
-                "title": "%matlab-in-vscode.runMatlabFile%",
-                "icon": "$(notebook-execute-all)"
-              },
-              {
-                "command": "matlab-in-vscode.runMatlabCell",
-                "title": "%matlab-in-vscode.runMatlabCell%",
-                "icon": "$(notebook-execute)",
-                "when": "editorTextFocus && editorLangId == matlab"
-              },
-              {
-                "command": "matlab-in-vscode.runMatlabLine",
-                "title": "%matlab-in-vscode.runMatlabLine%",
-                "when": "editorTextFocus && editorLangId == matlab"
-              },
-              {
-                "command": "matlab-in-vscode.interupt",
-                "title": "%matlab-in-vscode.interupt%",
-                "icon": "$(notebook-stop)"
-              },
-              {
-                "command": "matlab-in-vscode.cd",
-                "title": "%matlab-in-vscode.cd%",
-                "icon": "$(file-symlink-directory)"
-              },
-              {
-                "command": "matlab-in-vscode.stop",
-                "title": "%matlab-in-vscode.stop%",
-                "icon": "$(panel-close)"
-              },
-              {
-                "command": "matlab-in-vscode.variable",
-                "title": "%matlab-in-vscode.variable%",
-                "icon": "$(eye)"
-              },
-              {
-                "command": "matlab-in-vscode.edit",
-                "title": "%matlab-in-vscode.edit%",
-                "icon": "$(pencil)"
-              },
-              {
-                "command": "matlab-in-vscode.doc",
-                "title": "%matlab-in-vscode.doc%",
-                "icon": "$(book)"
-              }
-        ],
-        "keybindings": [
-            {
-                "command": "matlab-in-vscode.runMatlabCell",
-                "key": "ctrl+enter",
-                "mac": "cmd+enter",
-                "when": "editorTextFocus && editorLangId == matlab"
-            },
-            {
-                "command": "matlab-in-vscode.runMatlabLine",
-                "key": "shift+enter",
-                "mac": "shift+enter",
-                "when": "editorTextFocus && editorLangId == matlab"
-            }
-        ],
-        "menus": {
-            "editor/title": [
-                {
-                    "when": "resourceLangId == matlab",
-                    "command": "matlab-in-vscode.runMatlabFile",
-                    "group": "navigation@1"
-                },
-                {
-                    "when": "resourceLangId == matlab",
-                    "command": "matlab-in-vscode.runMatlabCell",
-                    "group": "navigation@2"
-                },
-                {
-                    "when": "resourceLangId == matlab",
-                    "command": "matlab-in-vscode.interupt",
-                    "group": "navigation@3"
-                },
-                {
-                    "when": "resourceLangId == matlab",
-                    "command": "matlab-in-vscode.cd",
-                    "group": "navigation@4"
-                },
-                {
-                    "when": "resourceLangId == matlab",
-                    "command": "matlab-in-vscode.variable",
-                    "group": "navigation@5"
-                },
-                {
-                    "when": "resourceLangId == matlab",
-                    "command": "matlab-in-vscode.edit",
-                    "group": "navigation@6"
-                },
-                {
-                    "when": "resourceLangId == matlab",
-                    "command": "matlab-in-vscode.doc",
-                    "group": "navigation@7"
-                }
-            ]
-        }
-    },
-    "scripts": {
-        "vscode:prepublish": "npm run package",
-        "compile": "webpack",
-        "watch": "webpack --watch",
-        "package": "webpack --mode production --devtool hidden-source-map",
-        "compile-tests": "tsc -p . --outDir out",
-        "watch-tests": "tsc -p . -w --outDir out",
-        "pretest": "npm run compile-tests && npm run compile && npm run lint",
-        "lint": "eslint src --ext ts",
-        "test": "node ./out/test/runTest.js"
-    },
-    "devDependencies": {
-        "@types/glob": "^8.1.0",
-        "@types/mocha": "^10.0.1",
-        "@types/node": "16.x",
-        "@types/vscode": "^1.76.0",
-        "@typescript-eslint/eslint-plugin": "^5.53.0",
-        "@typescript-eslint/parser": "^5.53.0",
-        "@vscode/test-electron": "^2.2.3",
-        "eslint": "^8.34.0",
-        "glob": "^8.1.0",
-        "mocha": "^10.2.0",
-        "ts-loader": "^9.4.2",
-        "typescript": "^4.9.5",
-        "webpack": "^5.75.0",
-        "webpack-cli": "^5.0.1"
-    },
-    "dependencies": {
-        "csv-parser": "^3.0.0",
-        "vsce": "^0.9.0"
-    }
+	"name": "matlab-in-vscode",
+	"displayName": "Matlab in VSCode",
+	"description": "Run Matlab code in VSCode",
+	"version": "0.4.22",
+	"publisher": "shinyypig",
+	"license": "MIT",
+	"icon": "assets/matlab.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/shinyypig/matlab-in-vscode"
+	},
+	"engines": {
+		"vscode": "^1.76.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"activationEvents": [
+		"onLanguage:matlab"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"configuration": {
+			"title": "Matlab in VSCode",
+			"properties": {
+				"matlab-in-vscode.matlabPybackend": {
+					"type": "boolean",
+					"default": false,
+					"description": "Use python matlab engine. (Recommend in Windows)"
+				},
+				"matlab-in-vscode.matlabPythonPath": {
+					"type": "string",
+					"default": "python",
+					"description": "Specify the python path. (Only vaild when matlabPybackend is true)"
+				},
+				"matlab-in-vscode.matlabCMD": {
+					"type": "string",
+					"default": "matlab -nodesktop -nosplash",
+					"description": "Comand to start Matlab. If using python matlab engine, it will be ignored."
+				},
+				"matlab-in-vscode.matlabStartup": {
+					"type": "array",
+					"default": [
+						"disp(['Working directory: ', pwd]);"
+					],
+					"description": "Arguments to pass to matlab"
+				},
+				"matlab-in-vscode.matlabStartupDelay": {
+					"type": "number",
+					"default": 500,
+					"description": "Time to wait for sending startup commands (ms)"
+				},
+				"matlab-in-vscode.matlabMoveToNext": {
+					"type": "boolean",
+					"default": true,
+					"description": "Whether to move to next line after run current line."
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "matlab-in-vscode.runMatlabFile",
+				"title": "Run Current Matlab File",
+				"icon": "$(notebook-execute-all)"
+			},
+			{
+				"command": "matlab-in-vscode.runMatlabCell",
+				"title": "Run Current Matlab Cell",
+				"icon": "$(notebook-execute)",
+				"when": "editorTextFocus && editorLangId == matlab"
+			},
+			{
+				"command": "matlab-in-vscode.runMatlabLine",
+				"title": "Run Current Line",
+				"when": "editorTextFocus && editorLangId == matlab"
+			},
+			{
+				"command": "matlab-in-vscode.interupt",
+				"title": "Interupt Matlab",
+				"icon": "$(notebook-stop)"
+			},
+			{
+				"command": "matlab-in-vscode.cd",
+				"title": "Change Matlab Working Directory",
+				"icon": "$(file-symlink-directory)"
+			},
+			{
+				"command": "matlab-in-vscode.stop",
+				"title": "Stop Matlab",
+				"icon": "$(panel-close)"
+			},
+			{
+				"command": "matlab-in-vscode.variable",
+				"title": "Show Variable",
+				"icon": "$(eye)"
+			},
+			{
+				"command": "matlab-in-vscode.edit",
+				"title": "Edit in Matlab",
+				"icon": "$(pencil)"
+			},
+			{
+				"command": "matlab-in-vscode.doc",
+				"title": "Show Matlab Document",
+				"icon": "$(book)"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "matlab-in-vscode.runMatlabCell",
+				"key": "ctrl+enter",
+				"mac": "cmd+enter",
+				"when": "editorTextFocus && editorLangId == matlab"
+			},
+			{
+				"command": "matlab-in-vscode.runMatlabLine",
+				"key": "shift+enter",
+				"mac": "shift+enter",
+				"when": "editorTextFocus && editorLangId == matlab"
+			}
+		],
+		"menus": {
+			"editor/title": [
+				{
+					"when": "resourceLangId == matlab",
+					"command": "matlab-in-vscode.runMatlabFile",
+					"group": "navigation@1"
+				},
+				{
+					"when": "resourceLangId == matlab",
+					"command": "matlab-in-vscode.runMatlabCell",
+					"group": "navigation@2"
+				},
+				{
+					"when": "resourceLangId == matlab",
+					"command": "matlab-in-vscode.interupt",
+					"group": "navigation@3"
+				},
+				{
+					"when": "resourceLangId == matlab",
+					"command": "matlab-in-vscode.cd",
+					"group": "navigation@4"
+				},
+				{
+					"when": "resourceLangId == matlab",
+					"command": "matlab-in-vscode.variable",
+					"group": "navigation@5"
+				},
+				{
+					"when": "resourceLangId == matlab",
+					"command": "matlab-in-vscode.edit",
+					"group": "navigation@6"
+				},
+				{
+					"when": "resourceLangId == matlab",
+					"command": "matlab-in-vscode.doc",
+					"group": "navigation@7"
+				}
+			]
+		},
+		"grammars": [
+			{
+				"language": "matlab",
+				"scopeName": "source.matlab",
+				"path": "./syntaxes/MATLAB-Language-grammar/Matlab.tmbundle/Syntaxes/MATLAB.tmLanguage"
+			},
+			{
+				"injectTo": [
+					"source.matlab"
+				],
+				"scopeName": "builtin.matlab.injection",
+				"path": "./syntaxes/builtin.matlab.injection.tmLanguage"
+			},
+			{
+				"injectTo": [
+					"source.matlab"
+				],
+				"scopeName": "overload.matlab.injection",
+				"path": "./syntaxes/overload.matlab.injection.tmLanguage"
+			},
+			{
+				"injectTo": [
+					"source.matlab"
+				],
+				"scopeName": "package.matlab.injection",
+				"path": "./syntaxes/package.matlab.injection.tmLanguage"
+			},
+			{
+				"injectTo": [
+					"source.matlab"
+				],
+				"scopeName": "validation.matlab.injection",
+				"path": "./syntaxes/validation.matlab.injection.tmLanguage"
+			},
+			{
+				"injectTo": [
+					"text.html.markdown"
+				],
+				"scopeName": "markdown.matlab.codeblock",
+				"path": "./syntaxes/matlab.markdown.injection.tmLanguage",
+				"embeddedLanguages": {
+					"meta.embedded.block.matlab": "matlab"
+				}
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run package",
+		"compile": "webpack",
+		"watch": "webpack --watch",
+		"package": "webpack --mode production --devtool hidden-source-map",
+		"compile-tests": "tsc -p . --outDir out",
+		"watch-tests": "tsc -p . -w --outDir out",
+		"pretest": "npm run compile-tests && npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^8.1.0",
+		"@types/mocha": "^10.0.1",
+		"@types/node": "16.x",
+		"@types/vscode": "^1.76.0",
+		"@typescript-eslint/eslint-plugin": "^5.53.0",
+		"@typescript-eslint/parser": "^5.53.0",
+		"@vscode/test-electron": "^2.2.3",
+		"eslint": "^8.34.0",
+		"glob": "^8.1.0",
+		"mocha": "^10.2.0",
+		"ts-loader": "^9.4.2",
+		"typescript": "^4.9.5",
+		"webpack": "^5.75.0",
+		"webpack-cli": "^5.0.1"
+	},
+	"dependencies": {
+		"csv-parser": "^3.0.0",
+		"vsce": "^0.9.0"
+	},
+	"__metadata": {
+		"id": "ccbe17b5-5a05-4213-9d21-5b25b95e6de6",
+		"publisherId": "f4232bb1-9661-4400-a746-128581db8d57",
+		"publisherDisplayName": "shinyypig",
+		"targetPlatform": "undefined",
+		"updated": false,
+		"isPreReleaseVersion": false,
+		"hasPreReleaseVersion": false,
+		"installedTimestamp": 1714187237101,
+		"pinned": true,
+		"source": "gallery"
+	}
 }
