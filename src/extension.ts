@@ -339,8 +339,13 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     function showMatlabDoc() {
-        let command = "doc";
-        sendToMatlab(command);
+        let activeTextEditor = vscode.window.activeTextEditor;
+        if (activeTextEditor) {
+            const selection = activeTextEditor.selection;
+            const text = activeTextEditor.document.getText(selection);
+            let command = "doc " + text;
+            sendToMatlab(command);
+        }
     }
 
     let dispRunMatlabFile = vscode.commands.registerCommand(

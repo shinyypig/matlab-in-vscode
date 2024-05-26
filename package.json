@@ -157,6 +157,20 @@
                     "command": "matlab-in-vscode.doc",
                     "group": "navigation@7"
                 }
+            ],
+            "editor/context": [
+                {
+                    "when": "editorLangId == matlab",
+                    "command": "matlab-in-vscode.runMatlabCell"
+                },
+                {
+                    "when": "editorLangId == matlab",
+                    "command": "matlab-in-vscode.runMatlabLine"
+                },
+                {
+                    "when": "editorLangId == matlab",
+                    "command": "matlab-in-vscode.doc"
+                }
             ]
         },
         "grammars": [
