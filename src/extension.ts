@@ -322,7 +322,9 @@ export function activate(context: vscode.ExtensionContext) {
             matlabScope.webview.onDidReceiveMessage((message) => {
                 if (message.command === "openvar") {
                     let command = `openvar("${message.text}")`;
-                    matlabTerminal.sendText(command);
+                    if (matlabTerminal) {
+                        matlabTerminal.sendText(command);
+                    }
                 }
             });
         }

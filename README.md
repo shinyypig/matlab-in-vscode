@@ -12,6 +12,7 @@ Major:
 -   view variables directly in VSCode
 -   run a cell in matlab by press `ctrl+enter` or `cmd+enter`
 -   run current line and move to next in matlab by press `shift+enter`
+-   syntax highlighting for `.m` file
 
 Minor:
 
@@ -43,6 +44,12 @@ You can click the button in the menu bar to open a webview to inspect the variab
     <img width=50% style=margin:2% src="assets/2023-06-25-20-16-14.png">
 </div>
 
+Furthermore, you now can click the variable name to see the details of the variable.
+
+<div style="display: flex;justify-content: center; flex-wrap: wrap;">
+    <img width="50%" src="assets/iShot_2024-05-26_09.48.06.gif" style="padding:10px;">
+</div>
+
 Notice that a file named `matlabInVSCodeVariableInfo.csv` will be generated in the current directory. It is used to store the variable information. Normally, this file will be automatically deleted immediately. However, if some error occurs, it may not be deleted. You should delete it manually.
 
 **Important!!!** You need to open a folder as workspace in the VSCode to make sure that the extension can find the `matlabInVSCodeVariableInfo.csv` file.
@@ -53,6 +60,14 @@ You can split your code by `%%`, click the run cell button or simply press `ctrl
 
 <div align=center>
     <img width=50% style=margin:2% src="assets/iShot_2023-03-25_11.52.16.gif">
+</div>
+
+## View Documentation
+
+You can right click the function name and select `Show Matlab Document` to view the documentation of the function.
+
+<div align=center>
+    <img width=50% style=margin:2% src="assets/iShot_2024-05-26_09.47.00.gif">
 </div>
 
 ## Settings

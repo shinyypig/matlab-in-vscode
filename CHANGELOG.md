@@ -8,6 +8,13 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.5.0
+
+Feat #41, improve `doc` command.
+Feat #42, Chinese localization.
+Feat #43, view variable details by clicking the variable name.
+Feat #45, add matlab syntax highlight support.
+
 ## 0.4.22
 
 Fix #29, use workspace folder as the default path.
