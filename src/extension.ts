@@ -281,6 +281,10 @@ export function activate(context: vscode.ExtensionContext) {
         // matlabTerminal.sendText("variable_info;");
         // read tmp.csv and display it in the webview
         let workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
+        let filePath = vscode.window.activeTextEditor?.document.fileName;
+        if (filePath !== undefined) {
+            workspacePath = path.dirname(filePath);
+        }
         if (workspacePath === undefined) {
             return;
         }
@@ -480,4 +484,5 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+}
