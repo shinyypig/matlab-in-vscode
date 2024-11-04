@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.5.2
+
+Fix #46.
+
 ## 0.5.1
 
 Add language support for .m and .mat files.
