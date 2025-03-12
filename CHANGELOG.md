@@ -8,6 +8,10 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 - Nothing -->
 
+## 0.5.3
+
+Fix #49.
+
 ## 0.5.2
 
 Fix #46.

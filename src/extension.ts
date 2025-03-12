@@ -103,15 +103,13 @@ export function activate(context: vscode.ExtensionContext) {
     let matlabMoveToNext = config.get("matlabMoveToNext") as boolean;
     let matlabScope: vscode.WebviewPanel | undefined;
 
-    function findMatlabTerminal() {
-        let matlabTerminalId = context.workspaceState.get("matlabTerminalId");
-        if (matlabTerminalId !== undefined) {
-            return vscode.window.terminals.find(
-                (x) => x.processId === matlabTerminalId
-            );
-        } else {
-            return undefined;
-        }
+    function findMatlabTerminal() {  
+        let matlabTerminalId = context.workspaceState.get("matlabTerminalId");  
+        if (matlabTerminalId !== undefined) {  
+            return vscode.window.terminals.find(x => x.name === "MATLAB");  
+        } else {  
+            return undefined;  
+        }  
     }
 
     function sendToMatlab(command: string) {
