@@ -103,13 +103,13 @@ export function activate(context: vscode.ExtensionContext) {
     let matlabMoveToNext = config.get("matlabMoveToNext") as boolean;
     let matlabScope: vscode.WebviewPanel | undefined;
 
-    function findMatlabTerminal() {  
-        let matlabTerminalId = context.workspaceState.get("matlabTerminalId");  
-        if (matlabTerminalId !== undefined) {  
-            return vscode.window.terminals.find(x => x.name === "MATLAB");  
-        } else {  
-            return undefined;  
-        }  
+    function findMatlabTerminal() {
+        let matlabTerminalId = context.workspaceState.get("matlabTerminalId");
+        if (matlabTerminalId !== undefined) {
+            return vscode.window.terminals.find((x) => x.name === "MATLAB");
+        } else {
+            return undefined;
+        }
     }
 
     function sendToMatlab(command: string) {
@@ -278,11 +278,16 @@ export function activate(context: vscode.ExtensionContext) {
 
         // matlabTerminal.sendText("variable_info;");
         // read tmp.csv and display it in the webview
+        // let workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
+        // let filePath = vscode.window.activeTextEditor?.document.fileName;
+        // if (filePath !== undefined) {
+        //     workspacePath = path.dirname(filePath);
+        // }
+
+        // get workspace path
+
         let workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
-        let filePath = vscode.window.activeTextEditor?.document.fileName;
-        if (filePath !== undefined) {
-            workspacePath = path.dirname(filePath);
-        }
+
         if (workspacePath === undefined) {
             return;
         }
@@ -482,5 +487,4 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {
-}
+export function deactivate() {}

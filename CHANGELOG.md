@@ -7,6 +7,9 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 <!-- ## [Unreleased]
 
 - Nothing -->
+## 0.5.4
+
+Fix # 53.
 
 ## 0.5.3
 
