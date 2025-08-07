@@ -48,6 +48,20 @@ You can click the button in the menu bar to open a webview to inspect the variab
 
 Furthermore, you now can click the variable name to see the details of the variable.
 
+## Recent Updates (v0.5.5)
+
+**🔧 Major Bug Fixes:**
+- **Fixed Variable Viewer Issues**: Resolved critical problems where the variable viewer would show blank content or fail to find the `variable_info` function
+- **Windows Path Compatibility**: Fixed path handling issues on Windows systems that prevented proper MATLAB integration
+- **Enhanced Error Handling**: Improved error messages and retry logic for better user experience
+
+**💡 Improvements:**
+- **Auto-Setup**: Extension now automatically copies required files to your workspace
+- **Better Debugging**: Added comprehensive logging to help troubleshoot any remaining issues
+- **Improved Display**: Enhanced variable formatting and array size display
+
+**Important:** If you're experiencing issues with the variable viewer, try restarting VS Code after installing this update.
+
 <div style="display: flex;justify-content: center; flex-wrap: wrap;">
     <img width="50%" src="assets/iShot_2024-05-26_09.48.06.gif" style="padding:10px;">
 </div>
