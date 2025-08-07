@@ -1,3 +1,5 @@
+# [English Version](./README.md) [简体中文版](./README_cn.md)
+
 # Matlab in VSCode
 
 ![license](https://img.shields.io/github/license/shinyypig/matlab-in-vscode)
