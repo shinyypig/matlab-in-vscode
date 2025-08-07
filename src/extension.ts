@@ -88,12 +88,9 @@ async function getScopeWebViewHtml(
     delay: number,
     retryCount: number = 0
 ): Promise<string> {
-    const maxRetries = 15; // 增加最大重试次数
-    
-    console.log(`Attempt ${retryCount + 1}/${maxRetries + 1}: Checking for file ${filePath}`);
+    const maxRetries = 10; // 最大重试次数
     
     if (fs.existsSync(filePath)) {
-        console.log(`File found: ${filePath}`);
         try {
             return await readFileStream(filePath);
         } catch (error) {
@@ -121,19 +118,17 @@ async function getScopeWebViewHtml(
                 <body>
                 <table>
                 <tr><th>Name</th><th>Value</th><th>Class</th></tr>
-                <tr><td colspan="3">Error reading CSV file: ${error}</td></tr>
+                <tr><td colspan="3">No variables found or error reading data</td></tr>
                 </table>
                 </body>
                 </html>
             `;
         }
     } else if (retryCount < maxRetries) {
-        console.log(`File not found, waiting ${delay}ms before retry ${retryCount + 1}`);
         await new Promise((resolve) => setTimeout(resolve, delay));
         return await getScopeWebViewHtml(filePath, delay, retryCount + 1);
     } else {
         // 超过最大重试次数，返回空表格
-        console.log(`File not found after ${maxRetries + 1} attempts: ${filePath}`);
         return `
             <!DOCTYPE html>
             <html>
@@ -156,7 +151,7 @@ async function getScopeWebViewHtml(
             <body>
             <table>
             <tr><th>Name</th><th>Value</th><th>Class</th></tr>
-            <tr><td colspan="3">CSV file not found after ${maxRetries + 1} attempts: ${filePath}</td></tr>
+            <tr><td colspan="3">No variables file found after retries</td></tr>
             </table>
             </body>
             </html>
@@ -386,36 +381,13 @@ export function activate(context: vscode.ExtensionContext) {
             "matlabInVSCodeVariableInfo.csv"
         );
         
-        console.log(`Looking for CSV file at: ${csvPath}`);
-        
         // 增加延迟，给 MATLAB 时间生成文件
         setTimeout(() => {
-            getScopeWebViewHtml(csvPath, 200).then((htmlContent) => {
+            getScopeWebViewHtml(csvPath, 500).then((htmlContent) => {
                 if (matlabScope === undefined) {
                     return;
                 }
                 matlabScope.webview.html = htmlContent;
-            }).catch((error) => {
-                console.error("Error updating scope:", error);
-                if (matlabScope !== undefined) {
-                    matlabScope.webview.html = `
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                        <style>
-                        table { font-size: 14px; width: 100%; border-collapse: collapse; margin: 10px; }
-                        td, th { border: 1px solid gray; padding: 5px; text-align: left; }
-                        </style>
-                        </head>
-                        <body>
-                        <table>
-                        <tr><th>Name</th><th>Value</th><th>Class</th></tr>
-                        <tr><td colspan="3">Error loading variables. CSV file: ${csvPath}</td></tr>
-                        </table>
-                        </body>
-                        </html>
-                    `;
-                }
             });
         }, 1000);
     }
