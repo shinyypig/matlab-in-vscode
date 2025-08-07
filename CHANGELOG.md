@@ -10,29 +10,18 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 
 ## 0.5.5
 
-**Major Bug Fixes:**
+**Bug Fixes:**
 
-- Fix critical issue where `variable_info` function was not found in MATLAB path on Windows systems
-- Fix variable viewer displaying empty/blank content even when CSV file was generated correctly
-- Improve file path handling for Windows environments (convert backslashes to forward slashes)
-- Auto-copy `variable_info.m` to workspace root directory for better accessibility
-- Enhanced CSV file reading logic with better retry mechanism and error handling
-- Extend file deletion delay to prevent premature removal of temporary CSV files
-- Add comprehensive logging for debugging variable viewer issues
+- Fix variable viewer not displaying content on Windows systems
+- Fix `variable_info` function path resolution issues
+- Improve CSV file reading reliability and timing
+- Auto-copy `variable_info.m` to workspace for better accessibility
 
 **Improvements:**
 
-- Better error messages with detailed file paths for troubleshooting
-- Enhanced variable display formatting (improved array size display)
-- More robust file detection and retry logic (up to 15 attempts)
-- Improved HTML structure for variable viewer webview
-
-**Technical Details:**
-
-- Fixed path separator issues in MATLAB addpath commands
-- Enhanced `getScopeWebViewHtml` function with better error handling
-- Improved `updateScope` function to use current file directory for CSV detection
-- Added automatic workspace file copying functionality
+- Enhanced error handling for variable viewer
+- Better file path detection logic
+- Improved retry mechanism for CSV file reading
 
 ## 0.5.4
 

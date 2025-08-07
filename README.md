@@ -7,7 +7,11 @@
 ![version](https://img.shields.io/visual-studio-marketplace/v/shinyypig.matlab-in-vscode)
 ![last_commit](https://img.shields.io/github/last-commit/shinyypig/matlab-in-vscode)
 
-This is a VSCode extension for Matlab. It provides the following features.
+# MATLAB Extension for VSCode
+
+[English](README.md) | [中文](README_cn.md)
+
+This extension allows you to run matlab command within vscode.
 
 Major:
 
@@ -50,17 +54,17 @@ Furthermore, you now can click the variable name to see the details of the varia
 
 ## Recent Updates (v0.5.5)
 
-**🔧 Major Bug Fixes:**
-- **Fixed Variable Viewer Issues**: Resolved critical problems where the variable viewer would show blank content or fail to find the `variable_info` function
-- **Windows Path Compatibility**: Fixed path handling issues on Windows systems that prevented proper MATLAB integration
-- **Enhanced Error Handling**: Improved error messages and retry logic for better user experience
+**🔧 Bug Fixes:**
+- Fixed variable viewer not displaying content on Windows systems
+- Resolved `variable_info` function path issues
+- Improved CSV file reading reliability
 
 **💡 Improvements:**
-- **Auto-Setup**: Extension now automatically copies required files to your workspace
-- **Better Debugging**: Added comprehensive logging to help troubleshoot any remaining issues
-- **Improved Display**: Enhanced variable formatting and array size display
+- Auto-copy required files to workspace
+- Enhanced error handling and retry logic
+- Better file path detection
 
-**Important:** If you're experiencing issues with the variable viewer, try restarting VS Code after installing this update.
+**Note:** Extension now automatically handles required files. Restart VS Code if needed.
 
 <div style="display: flex;justify-content: center; flex-wrap: wrap;">
     <img width="50%" src="assets/iShot_2024-05-26_09.48.06.gif" style="padding:10px;">

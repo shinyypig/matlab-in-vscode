@@ -1,6 +1,6 @@
-[English Version](./README.md) [简体中文版](./README_cn.md)
+# MATLAB 扩展 for VSCode
 
-# VSCode 中的 MATLAB
+[English](README.md) | [中文](README_cn.md)
 
 ![license](https://img.shields.io/github/license/shinyypig/matlab-in-vscode)
 ![installs](https://img.shields.io/visual-studio-marketplace/i/shinyypig.matlab-in-vscode)
@@ -50,17 +50,17 @@
 
 ## 最新更新 (v0.5.5)
 
-**🔧 主要错误修复：**
-- **修复变量查看器问题**：解决了变量查看器显示空白内容或无法找到 `variable_info` 函数的关键问题
-- **Windows 路径兼容性**：修复了 Windows 系统上阻止正确 MATLAB 集成的路径处理问题
-- **增强错误处理**：改进了错误消息和重试逻辑，提供更好的用户体验
+**🔧 错误修复：**
+- 修复了Windows系统上变量查看器不显示内容的问题
+- 解决了`variable_info`函数路径问题
+- 改进了CSV文件读取可靠性
 
 **💡 改进：**
-- **自动设置**：扩展现在会自动复制必需的文件到您的工作空间
-- **更好的调试**：添加了全面的日志记录，帮助排查任何剩余问题
-- **改进显示**：增强了变量格式化和数组大小显示
+- 自动复制所需文件到工作空间
+- 增强错误处理和重试逻辑
+- 更好的文件路径检测
 
-**重要提示：** 如果您在变量查看器方面遇到问题，请在安装此更新后尝试重启 VS Code。
+**注意：** 扩展现在会自动处理所需文件。如有需要请重启VS Code。
 
 <div style="display: flex;justify-content: center; flex-wrap: wrap;">
     <img width="50%" src="assets/iShot_2024-05-26_09.48.06.gif" style="padding:10px;">
