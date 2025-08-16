@@ -1,8 +1,8 @@
 {
-    "name": "matlab-in-vscode",
-    "displayName": "Matlab in VSCode",
-    "description": "Run Matlab code in VSCode",
-    "version": "0.5.4",
+    "name": "matlab-in-vscode-fixed",
+    "displayName": "Matlab in VSCode (Fixed)",
+    "description": "Run Matlab code in VSCode - Fixed Variable Viewer",
+    "version": "0.5.5",
     "publisher": "shinyypig",
     "license": "MIT",
     "icon": "assets/matlab.png",
@@ -20,6 +20,17 @@
         "onLanguage:matlab"
     ],
     "main": "./dist/extension.js",
+    "scripts": {
+        "vscode:prepublish": "npm run package",
+        "compile": "webpack",
+        "watch": "webpack --watch",
+        "package": "webpack --mode production --devtool hidden-source-map",
+        "compile-tests": "tsc -p . --outDir out",
+        "watch-tests": "tsc -p . -w --outDir out",
+        "pretest": "npm run compile-tests && npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
     "contributes": {
         "configuration": {
             "title": "Matlab in VSCode",
@@ -232,25 +243,17 @@
             }
         ]
     },
-    "scripts": {
-        "vscode:prepublish": "npm run package",
-        "compile": "webpack",
-        "watch": "webpack --watch",
-        "package": "webpack --mode production --devtool hidden-source-map",
-        "compile-tests": "tsc -p . --outDir out",
-        "watch-tests": "tsc -p . -w --outDir out",
-        "pretest": "npm run compile-tests && npm run compile && npm run lint",
-        "lint": "eslint src --ext ts",
-        "test": "node ./out/test/runTest.js"
-    },
     "devDependencies": {
+        "@types/estree": "^1.0.8",
         "@types/glob": "^8.1.0",
+        "@types/json-schema": "^7.0.15",
         "@types/mocha": "^10.0.1",
-        "@types/node": "16.x",
+        "@types/node": "^16.18.126",
         "@types/vscode": "^1.76.0",
         "@typescript-eslint/eslint-plugin": "^5.53.0",
         "@typescript-eslint/parser": "^5.53.0",
         "@vscode/test-electron": "^2.2.3",
+        "@vscode/vsce": "^3.6.0",
         "eslint": "^8.34.0",
         "glob": "^8.1.0",
         "mocha": "^10.2.0",

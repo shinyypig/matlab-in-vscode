@@ -7,6 +7,22 @@ All notable changes to the "matlab-in-vscode" extension will be documented in th
 <!-- ## [Unreleased]
 
 - Nothing -->
+
+## 0.5.5
+
+**Bug Fixes:**
+
+- Fix variable viewer not displaying content on Windows systems
+- Fix `variable_info` function path resolution issues
+- Improve CSV file reading reliability and timing
+- Auto-copy `variable_info.m` to workspace for better accessibility
+
+**Improvements:**
+
+- Enhanced error handling for variable viewer
+- Better file path detection logic
+- Improved retry mechanism for CSV file reading
+
 ## 0.5.4
 
 Fix # 53.

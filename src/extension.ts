@@ -8,6 +8,9 @@ import * as csv from "csv-parser";
 function readFileStream(filePath: string): Promise<string> {
     return new Promise((resolve, reject) => {
         let htmlContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
             <style>
             table {
                 font-size: 14px;
@@ -25,13 +28,14 @@ function readFileStream(filePath: string): Promise<string> {
                 background-color: gray;
             }
             </style>
-        
+            
             <script>
             const vscode = acquireVsCodeApi();
             function handleClick(e) {
                 vscode.postMessage({command: "openvar", text: e.innerText});
             }
             </script>
+            </head>
             <body>
             <table>`;
 
@@ -60,14 +64,18 @@ function readFileStream(filePath: string): Promise<string> {
                 htmlContent += "</tr>";
             })
             .on("end", () => {
-                htmlContent += "</table>";
-                fs.unlink(filePath, (err) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(htmlContent);
-                    }
-                });
+                htmlContent += "</table></body></html>";
+                // 延长删除时间，给更多时间让界面加载
+                setTimeout(() => {
+                    fs.unlink(filePath, (err) => {
+                        if (err) {
+                            console.log("Failed to delete temp file:", err);
+                        } else {
+                            console.log("Successfully deleted temp file:", filePath);
+                        }
+                    });
+                }, 3000); // 增加到3秒
+                resolve(htmlContent);
             })
             .on("error", (err: Error) => {
                 reject(err);
@@ -77,13 +85,77 @@ function readFileStream(filePath: string): Promise<string> {
 
 async function getScopeWebViewHtml(
     filePath: string,
-    delay: number
+    delay: number,
+    retryCount: number = 0
 ): Promise<string> {
+    const maxRetries = 10; // 最大重试次数
+    
     if (fs.existsSync(filePath)) {
-        return await readFileStream(filePath);
-    } else {
+        try {
+            return await readFileStream(filePath);
+        } catch (error) {
+            console.log("Error reading file:", error);
+            // 如果读取失败，返回一个简单的空表格
+            return `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                <style>
+                table {
+                    font-size: 14px;
+                    width: 100%;
+                    table-layout: fixed;
+                    border-collapse: collapse;
+                    margin: 10px;
+                }
+                td, th {
+                    border: 1px solid gray;
+                    padding: 5px;
+                    text-align: left;
+                }
+                </style>
+                </head>
+                <body>
+                <table>
+                <tr><th>Name</th><th>Value</th><th>Class</th></tr>
+                <tr><td colspan="3">No variables found or error reading data</td></tr>
+                </table>
+                </body>
+                </html>
+            `;
+        }
+    } else if (retryCount < maxRetries) {
         await new Promise((resolve) => setTimeout(resolve, delay));
-        return await getScopeWebViewHtml(filePath, delay);
+        return await getScopeWebViewHtml(filePath, delay, retryCount + 1);
+    } else {
+        // 超过最大重试次数，返回空表格
+        return `
+            <!DOCTYPE html>
+            <html>
+            <head>
+            <style>
+            table {
+                font-size: 14px;
+                width: 100%;
+                table-layout: fixed;
+                border-collapse: collapse;
+                margin: 10px;
+            }
+            td, th {
+                border: 1px solid gray;
+                padding: 5px;
+                text-align: left;
+            }
+            </style>
+            </head>
+            <body>
+            <table>
+            <tr><th>Name</th><th>Value</th><th>Class</th></tr>
+            <tr><td colspan="3">No variables file found after retries</td></tr>
+            </table>
+            </body>
+            </html>
+        `;
     }
 }
 
@@ -97,7 +169,7 @@ export function activate(context: vscode.ExtensionContext) {
     let config = vscode.workspace.getConfiguration("matlab-in-vscode");
     let matlabPybackend = config.get("matlabPybackend") as boolean;
     let matlabPythonPath = config.get("matlabPythonPath") as string;
-    let matlabStartup = config.get("matlabStartup") as string;
+    let matlabStartup = config.get("matlabStartup") as string[];
     let matlabStartupDelay = config.get("matlabStartupDelay") as number;
     let matlabCMD = config.get("matlabCMD") as string;
     let matlabMoveToNext = config.get("matlabMoveToNext") as boolean;
@@ -143,14 +215,29 @@ export function activate(context: vscode.ExtensionContext) {
                 matlabTerminal.processId
             );
 
+            // 自动复制 variable_info.m 到工作区根目录（如果不存在的话）
+            if (workspacePath) {
+                let sourceFile = path.join(context.asAbsolutePath(""), "matlab_code", "variable_info.m");
+                let targetFile = path.join(workspacePath, "variable_info.m");
+                
+                if (!fs.existsSync(targetFile) && fs.existsSync(sourceFile)) {
+                    try {
+                        fs.copyFileSync(sourceFile, targetFile);
+                        console.log(`Copied variable_info.m to workspace: ${targetFile}`);
+                    } catch (error) {
+                        console.log(`Failed to copy variable_info.m: ${error}`);
+                    }
+                }
+            }
+
             let startupCommand = "";
             for (let i = 0; i < matlabStartup.length; i++) {
                 startupCommand += matlabStartup[i];
             }
-            startupCommand +=
-                "addpath('" +
-                path.join(context.asAbsolutePath(""), "/matlab_code/") +
-                "');";
+            // 添加扩展目录到 MATLAB 路径，确保 variable_info.m 可用
+            let matlabCodePath = path.join(context.asAbsolutePath(""), "matlab_code").replace(/\\/g, '/');
+            startupCommand += `addpath('${matlabCodePath}');`;
+            startupCommand += `disp('Added path: ${matlabCodePath}');`;
 
             let bringupCommand = "";
             if (matlabPybackend) {
@@ -276,17 +363,14 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        // matlabTerminal.sendText("variable_info;");
-        // read tmp.csv and display it in the webview
-        // let workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
-        // let filePath = vscode.window.activeTextEditor?.document.fileName;
-        // if (filePath !== undefined) {
-        //     workspacePath = path.dirname(filePath);
-        // }
-
-        // get workspace path
-
+        // 获取当前 MATLAB 的工作目录，而不是 VS Code 的工作区目录
         let workspacePath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
+        let currentDir = vscode.window.activeTextEditor?.document.fileName;
+        
+        // 如果有活动文件，使用文件所在目录作为 CSV 查找位置
+        if (currentDir !== undefined) {
+            workspacePath = path.dirname(currentDir);
+        }
 
         if (workspacePath === undefined) {
             return;
@@ -296,12 +380,16 @@ export function activate(context: vscode.ExtensionContext) {
             workspacePath,
             "matlabInVSCodeVariableInfo.csv"
         );
-        getScopeWebViewHtml(csvPath, 500).then((htmlContent) => {
-            if (matlabScope === undefined) {
-                return;
-            }
-            matlabScope.webview.html = htmlContent;
-        });
+        
+        // 增加延迟，给 MATLAB 时间生成文件
+        setTimeout(() => {
+            getScopeWebViewHtml(csvPath, 500).then((htmlContent) => {
+                if (matlabScope === undefined) {
+                    return;
+                }
+                matlabScope.webview.html = htmlContent;
+            });
+        }, 1000);
     }
 
     function showVariable() {

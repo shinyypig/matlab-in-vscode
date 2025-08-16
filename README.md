@@ -1,3 +1,5 @@
+# [English Version](./README.md) [简体中文版](./README_cn.md)
+
 # Matlab in VSCode
 
 ![license](https://img.shields.io/github/license/shinyypig/matlab-in-vscode)
@@ -5,7 +7,11 @@
 ![version](https://img.shields.io/visual-studio-marketplace/v/shinyypig.matlab-in-vscode)
 ![last_commit](https://img.shields.io/github/last-commit/shinyypig/matlab-in-vscode)
 
-This is a VSCode extension for Matlab. It provides the following features.
+# MATLAB Extension for VSCode
+
+[English](README.md) | [中文](README_cn.md)
+
+This extension allows you to run matlab command within vscode.
 
 Major:
 
@@ -45,6 +51,20 @@ You can click the button in the menu bar to open a webview to inspect the variab
 </div>
 
 Furthermore, you now can click the variable name to see the details of the variable.
+
+## Recent Updates (v0.5.5)
+
+**🔧 Bug Fixes:**
+- Fixed variable viewer not displaying content on Windows systems
+- Resolved `variable_info` function path issues
+- Improved CSV file reading reliability
+
+**💡 Improvements:**
+- Auto-copy required files to workspace
+- Enhanced error handling and retry logic
+- Better file path detection
+
+**Note:** Extension now automatically handles required files. Restart VS Code if needed.
 
 <div style="display: flex;justify-content: center; flex-wrap: wrap;">
     <img width="50%" src="assets/iShot_2024-05-26_09.48.06.gif" style="padding:10px;">
